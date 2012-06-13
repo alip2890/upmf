@@ -1,0 +1,77 @@
+README for upmf
+***************
+
+Copyright (C) 2012 Aljosha Papsch <papsch.al@googlemail.com>
+
+   Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.
+
+Table Of Contents
+=================
+
+  1. Features
+  2. Installation
+  3. Dependencies
+  4. Acquiring package files
+  5. Licensing
+
+Features
+========
+
+   Upmf is a package manager, uniting the good things of two other source
+based package managers, Gentoo's Portage and Paldo's Upkg, and adding some
+own ideas:
+
+  * Package specification files: Upmf uses an advanced XML format, derived
+    from Upkg's XML format.  Upmf strives to keep compatibility with Upkg's
+    package files, thus giving access to Paldo's growing repository.
+  * Attributes in package file: Provide information about URI of source,
+    description and licensing.
+  * USE flags: The user can customize the features of a package.  If a USE
+    flag is enabled, the feature will be built, otherwise not.
+  * Build types: Provide predefined ways to build a package.  This avoids
+    massive duplication of the same lines (./configure && ...) like in
+    Upkg's package files.
+  * Sections: Give packages a namespace.  This is much like the first part
+    in Gentoo package names, e.g. dev-lang in dev-lang/vala.
+  * Installation of a package: Upmf uses GNU Stow for installation of
+    packages.  In contrast, Portage and Upkg install a package to a special
+    install directory, create an archive from that and then extract that
+    archive in the root file system.  Upmf + Stow should be faster here,
+    especially on big-sized packages.
+
+Installation
+============
+
+Please see the file INSTALL for detailed installation information.
+
+Dependencies
+============
+
+libxml-2.0 >= 2.8.0 http://xmlsoft.org/ Expat license
+
+Acquiring package files
+=======================
+
+   Currently, there are no package files available for Upmf.  You can
+find a draft file in this distribution though (draft.xml). Please note
+that package files would be named after the package name, if there were
+some.
+
+Licensing
+=========
+
+   Upmf is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+   
+   Upmf is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+along with Upmf.  If not, see <http://www.gnu.org/licenses/>.
