@@ -41,4 +41,4 @@ PKG_CHECK_MODULES([DEPS], [
 			  libxml-2.0 >= 2.7.0
 			  ])
 
-AC_OUTPUT([Makefile lib/Makefile src/Makefile po/Makefile.in])
+AC_OUTPUT([Makefile lib/Makefile src/Makefile po/Makefile.in data/Makefile])
