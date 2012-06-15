@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upmf 0.1\n"
 "Report-Msgid-Bugs-To: papsch.al@googlemail.com\n"
-"POT-Creation-Date: 2012-06-13 14:14+0200\n"
+"POT-Creation-Date: 2012-06-15 16:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,4 +20,26 @@ msgstr ""
 #: src/upmf.c:118
 #, c-format
 msgid "Could not load configuration, aborting"
+msgstr ""
+
+#: src/upmf.c:124
+#, c-format
+msgid ""
+"Configuration file is not enabled\n"
+"Please set the tag enabled to true"
+msgstr ""
+
+#: src/common.c:37
+#, c-format
+msgid "Document not parsed successfully"
+msgstr ""
+
+#: src/common.c:44
+#, c-format
+msgid "Document is empty"
+msgstr ""
+
+#: src/common.c:51
+#, c-format
+msgid "Root element is wrong; is not '%s'"
 msgstr ""

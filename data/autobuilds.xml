@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<autobuilds>
+  <build name="autotools">
+    <cmd>./configure {CONFOPTS}</cmd>
+    <cmd die="1">make {MAKEOPTS}</cmd>
+    <cmd>make DESTDIR="{PKGDIR}" install</cmd>
+  </build>
+  <build name="autotools-autogen">
+    <cmd>./autogen.sh</cmd>
+    <cmd>./configure {CONFOPTS}</cmd>
+    <cmd die="1">make {MAKEOPTS}</cmd>
+    <cmd>make DESTDIR="{PKGDIR}" install</cmd>
+  </build>
+  <build name="cmake">
+    <cmd>cmake {CONFOPTS}</cmd>
+    <cmd die="1">make {MAKEOPTS}</cmd>
+    <cmd>make install</cmd>
+</autobuilds>

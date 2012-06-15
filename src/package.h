@@ -24,6 +24,7 @@
 #include "gl_list.h"
 #include "gl_linked_list.h"
 #include "types.h"
+#include "upmf-config.h"
 #include "use.h"
 
 struct UpmfPackage
@@ -37,9 +38,12 @@ struct UpmfPackage
 };
 
 upmf_package_t*
-upmf_package_new (xmlDocPtr doc, xmlNodePtr node);
+upmf_package_new (ucstring_t filen);
 
 void
 upmf_package_destroy (upmf_package_t *this);
+
+gl_list_t
+upmf_package_tree_new (ucstring_t pkgname);
 
 #endif /* !PACKAGE_H */

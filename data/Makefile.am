@@ -1,5 +1,8 @@
 upmfconfdir = $(sysconfdir)
-upmfconf_DATA = settings.xml
+upmfconf_DATA = upmf-settings.xml
+
+upmfdatadir = $(datadir)/upmf
+upmfdata_DATA = world.xml
 
 # Install example files, so Upmf can be tested
 pkgdir = $(datadir)/upmf/packages

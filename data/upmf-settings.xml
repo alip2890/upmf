@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+Configuration file for Upmf
+
+Copyright (C) 2012 Aljosha Papsch <papsch.al@googlemail.com>
+
+This file is part of Upmf.
+
+Upmf is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+   
+Upmf is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+   
+You should have received a copy of the GNU General Public License
+along with Upmf.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<settings>
+  <!-- Set this to true when you verified that all settings suit your needs.
+  This setting exists so that Upmf can be sure everything is set right. -->
+  <enabled>true</enabled>
+
+  <!-- Sets the directories where to look for package xml files, in order -->
+  <packagefiles>
+    <dir>/home/al/usr/share/upmf/packages</dir>
+  </packagefiles>
+  <!-- Sets the directory where to install packages -->
+  <packagedir>/pkg</packagedir>
+
+  <!-- CFLAGS variable -->
+  <cflags>-02 -g -march=native</cflags>
+  <!-- CXXFLAGS variable. If unset, value from cflags is used -->
+  <cxxflags></cxxflags>
+  <!-- CHOST variable -->
+  <chost>i686-pc-linux-gnu</chost>
+  <!-- Options to pass to make -->
+  <makeopts>-j3</makeopts>
+  <!-- Stow executable -->
+  <stow>/usr/bin/stow</stow>
+
+  <!-- Features to enable for packages:
+  splitdebug: Install binaries without debug symbols, but keep debug symbols
+              in a seperate file -->
+  <features>
+    <feature>splitdebug</feature>
+  </features>
+
+</settings>

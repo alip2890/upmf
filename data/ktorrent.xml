@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+This is a draft package specification file for upmf. It is intended to
+bring the simple and convient XML structure from Paldo's upkg package files
+together with Gentoo's mighty Portage ebuilds.
+
+Copyright (C) 2012 Aljosha Papsch <papsch.al@googlemail.com>
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.  This file is offered as-is,
+without warranty of any kind.
+-->
+
+<!-- Added:
+     section attribute: Order the packages in categories. In Gentoo/BSDs one
+     would write net-p2p/ktorrent
+     spec attribute. It serves the same purpose as EAPI in ebuild. -->
+<package name="ktorrent" section="net-p2p" spec="upmf-draft">
+  <description>BitTorrent client with Qt GUI</description>
+  <!-- upkg actually lacks a source uri tag. Here it is. PV is substituted with
+       the package version and PS (package string) is substituted with the package
+       name and version ([name]-[version]). -->
+  <uri>http://ktorrent.org/downloads/{PV}/{PS}.tar.bz2</uri>
+  <!-- The use tags serve the same purpose as the USE thingy in Portage. -->
+  <uses>
+    <!-- Defines a possible use value. The name attribute must define the name
+         which can be used in the dependency section. The text serves as a
+	 description. -->
+    <use name="infowidget">Displays general information about a torrent</use>
+    <use name="mediaplayer">Phonon-based media player</use>
+    <use name="plasma">Build optional plasma widgets</use>
+    <use name="rss">Syndication plugin for KTorrent, supporting RSS and Atom</use>
+    <use name="shutdown">Enable shutdown option</use>
+  </uses>
+  <!-- Defines patches for this package. This section lists all patches, the are
+       are applied in the release tag. The name attribute is the identifier for
+       a patch. filen is the filename relative from the patch directory. The use
+       attribute is optional; the patch is only applied when the use value is active.
+       The recommended attribute determines whether a patch is applied automatically,
+       e.g. in case of a bug fix. -->
+  <patches>
+    <patch name="kt1" filen="{PN}-somepatch.patch" use="infowidget" recommended="1" />
+  </patches>
+  <releases>
+    <!-- Added:
+        patches attribute: The whitespace seperated list specifies the patches to
+	apply in this release -->
+    <release version="4.2.0" revision="1" branch="stable" patches="kt1">
+      <deps>
+	<!-- The dep tag was slightly changed. The version is not directly appended
+	     to the package name, but in the optional version attribute.
+	     The optional use attribute defines for which use value to enable the
+	     dependency. It must be one of the use values defined in the uses tag.
+	-->
+	<dep name="libktorrent" version="4.2.0" />
+	<dep name="geoip" use="infowidget" />
+	<dep name="taglib" version="1.5" use="mediaplayer" />
+	<dep name="libtaskmanager" use="plasma" />
+	<dep name="kdepimlibs" use="rss" />
+	<dep name="libworkspace" use="shutdown" />
+	<dep name="solid" use="shutdown" />
+      </deps>
+      <build>
+	<!-- Added: If a package uses a generic building process, you can use the
+	     autoscript tag. Possible values are autotools and cmake.
+	     Example: type is set to autotools. upmf would then call ./configure
+	     with standard arguments; then make; then make install.
+	     If the package requires special commands to build, just use the
+	     script tag and include the cmd tags in the archive tag as usual.
+	-->
+	<autoscript type="cmake">
+	  <!-- If name attribute is set to auto, upmf looks after the same filename
+	       as specified in the uri tag. Patches are applied directly after
+	       extracting the archive. -->
+	  <archive name="auto">
+	    <!-- Hooks are executed in a specific order, depending on value of type:
+		 prepare: First hook to run
+		 configure: Run before configuring the source (e.g. configure script)
+	    -->
+	    <hook type="prepare">
+	      <!-- The cmd tag has two additional attributes:
+	           use: If this is set, the cmd is only run when this use is active
+		   die: If this is not 0, process will terminate on failure -->
+	      <cmd use="plasma" die="1">sed -i -e "s:add_subdirectory(plasma):#nada:g CMakeLists.txt</cmd>
+	    </hook>
+	  </archive>
+	</autoscript>
+      </build>
+    </release>
+  </releases>
+</package>

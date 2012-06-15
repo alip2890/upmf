@@ -23,12 +23,24 @@
 
 #include "error.h"
 #include "gettext.h"
+#include "gl_linked_list.h"
+#include "gl_list.h"
 #include "types.h"
+#include "upmf-config.h"
 
 xstring_t
 upmf_get_xstring (xmlDocPtr doc, xmlNodePtr node);
 
 xmlDocPtr
-upmf_document_init (ustring_t filename, ustring_t tag);
+upmf_document_init (ucstring_t filename, ucstring_t tag);
+
+gl_list_t
+upmf_list_init_from_doc (xmlDocPtr doc, xmlNodePtr node, ustring_t children);
+
+ustring_t
+upmf_str_replace (ucstring_t s, ucstring_t old, ucstring_t new);
+
+ustring_t
+upmf_find_pkgfile (ucstring_t pkgname);
 
 #endif /* !COMMON_H */

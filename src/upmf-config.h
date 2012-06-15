@@ -38,7 +38,7 @@ struct UpmfConfig
   xstring_t makeopts;
   xstring_t upmfopts;
   xstring_t stow;
-  gl_list_t pkgfiles;
+  gl_list_t pkgfiledirs;
   gl_list_t features;
 };
 

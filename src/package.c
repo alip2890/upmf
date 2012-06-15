@@ -19,13 +19,24 @@
 #include "package.h"
 
 upmf_package_t*
-upmf_package_new (xmlDocPtr doc, xmlNodePtr node)
+upmf_package_new (ucstring_t filen)
 {
-  upmf_package_t *pack = UPMF_PACKAGE (malloc (sizeof (upmf_package_t)));
-  
-  pack->name = xmlGetProp (node, XSTRING ("name"));
+  xmlDocPtr doc;
+  xmlNodePtr node;
+  upmf_package_t *pack;
 
+  doc = upmf_document_init (filen, "package");
+  if (doc == NULL)
+    {
+      error (0, 0, _("Error processing package file, aborting"));
+      exit (1);
+    }
+
+  node = xmlDocGetRootElement (doc);
+  pack = UPMF_PACKAGE (malloc (sizeof (upmf_package_t)));  
+  pack->name = xmlGetProp (node, XSTRING ("name"));
   node = node->xmlChildrenNode;
+
   while (node != NULL)
     {
       if (!xmlStrcmp (node->name, XSTRING ("description")))
@@ -47,4 +58,12 @@ upmf_package_destroy (upmf_package_t *this)
   xmlFree (XSTRING (this->dscr));
   xmlFree (XSTRING (this->uri));
   free (this);
+}
+
+gl_list_t
+upmf_package_tree_new (ucstring_t pkgname)
+{
+  upmf_find_pkgfile (pkgname);
+
+  /*  free (filen);*/
 }

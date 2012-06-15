@@ -136,8 +136,9 @@ am__uninstall_files_from_dir = { \
     || { echo " ( cd '$$dir' && rm -f" $$files ")"; \
          $(am__cd) "$$dir" && rm -f $$files; }; \
   }
-am__installdirs = "$(DESTDIR)$(pkgdir)" "$(DESTDIR)$(upmfconfdir)"
-DATA = $(pkg_DATA) $(upmfconf_DATA)
+am__installdirs = "$(DESTDIR)$(pkgdir)" "$(DESTDIR)$(upmfconfdir)" \
+	"$(DESTDIR)$(upmfdatadir)"
+DATA = $(pkg_DATA) $(upmfconf_DATA) $(upmfdata_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 ALLOCA = @ALLOCA@
@@ -812,7 +813,9 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 upmfconfdir = $(sysconfdir)
-upmfconf_DATA = settings.xml
+upmfconf_DATA = upmf-settings.xml
+upmfdatadir = $(datadir)/upmf
+upmfdata_DATA = world.xml
 
 # Install example files, so Upmf can be tested
 pkgdir = $(datadir)/upmf/packages
@@ -893,6 +896,27 @@ uninstall-upmfconfDATA:
 	@list='$(upmfconf_DATA)'; test -n "$(upmfconfdir)" || list=; \
 	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
 	dir='$(DESTDIR)$(upmfconfdir)'; $(am__uninstall_files_from_dir)
+install-upmfdataDATA: $(upmfdata_DATA)
+	@$(NORMAL_INSTALL)
+	@list='$(upmfdata_DATA)'; test -n "$(upmfdatadir)" || list=; \
+	if test -n "$$list"; then \
+	  echo " $(MKDIR_P) '$(DESTDIR)$(upmfdatadir)'"; \
+	  $(MKDIR_P) "$(DESTDIR)$(upmfdatadir)" || exit 1; \
+	fi; \
+	for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  echo "$$d$$p"; \
+	done | $(am__base_list) | \
+	while read files; do \
+	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(upmfdatadir)'"; \
+	  $(INSTALL_DATA) $$files "$(DESTDIR)$(upmfdatadir)" || exit $$?; \
+	done
+
+uninstall-upmfdataDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(upmfdata_DATA)'; test -n "$(upmfdatadir)" || list=; \
+	files=`for p in $$list; do echo $$p; done | sed -e 's|^.*/||'`; \
+	dir='$(DESTDIR)$(upmfdatadir)'; $(am__uninstall_files_from_dir)
 tags: TAGS
 TAGS:
 
@@ -936,7 +960,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(pkgdir)" "$(DESTDIR)$(upmfconfdir)"; do \
+	for dir in "$(DESTDIR)$(pkgdir)" "$(DESTDIR)$(upmfconfdir)" "$(DESTDIR)$(upmfdatadir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -989,7 +1013,8 @@ info: info-am
 
 info-am:
 
-install-data-am: install-pkgDATA install-upmfconfDATA
+install-data-am: install-pkgDATA install-upmfconfDATA \
+	install-upmfdataDATA
 
 install-dvi: install-dvi-am
 
@@ -1033,7 +1058,8 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-pkgDATA uninstall-upmfconfDATA
+uninstall-am: uninstall-pkgDATA uninstall-upmfconfDATA \
+	uninstall-upmfdataDATA
 
 .MAKE: install-am install-strip
 
@@ -1043,11 +1069,12 @@ uninstall-am: uninstall-pkgDATA uninstall-upmfconfDATA
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am install-man \
 	install-pdf install-pdf-am install-pkgDATA install-ps \
-	install-ps-am install-strip install-upmfconfDATA installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-generic pdf \
-	pdf-am ps ps-am uninstall uninstall-am uninstall-pkgDATA \
-	uninstall-upmfconfDATA
+	install-ps-am install-strip install-upmfconfDATA \
+	install-upmfdataDATA installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic pdf pdf-am ps ps-am uninstall uninstall-am \
+	uninstall-pkgDATA uninstall-upmfconfDATA \
+	uninstall-upmfdataDATA
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

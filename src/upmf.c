@@ -119,11 +119,18 @@ main (int argc, char **argv)
       exit (1);
     }
 
+  if (strcmp (upmf_config.enabled, "true"))
+    {
+      error (0, 0, _("Configuration file is not enabled\nPlease set the tag enabled to true"));
+      exit (2);
+    }
+
   arguments.quiet = FALSE;
   arguments.update = FALSE;
   arguments.upgrade = FALSE;
   arguments.package_name = "-";
   argp_parse (&argp, argc, argv, 0, 0, &arguments);
+
 
   if (arguments.update)
     {
@@ -137,6 +144,7 @@ main (int argc, char **argv)
 
   if (strcmp (arguments.package_name, "-"))
     {
+      upmf_package_tree_new (arguments.package_name);
       printf ("Installing %s\n", arguments.package_name);
     }
   /*

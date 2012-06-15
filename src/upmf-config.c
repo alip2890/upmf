@@ -43,26 +43,39 @@ upmf_config_init ()
       if (!xmlStrcmp (node->name, XCSTRING ("enabled")))
 	upmf_config.enabled = upmf_get_xstring (configdoc, node);
       if (!xmlStrcmp (node->name, XCSTRING ("packagefiles")))
-	{
+	{	  
+	  upmf_config.pkgfiledirs = upmf_list_init_from_doc (configdoc,
+							     node, "dir");
 	}
+
       if (!xmlStrcmp (node->name, XCSTRING ("packagedir")))
 	upmf_config.packagedir = upmf_get_xstring (configdoc, node);
+
       if (!xmlStrcmp (node->name, XCSTRING ("cflags")))
 	upmf_config.cflags = upmf_get_xstring (configdoc, node);
+
       if (!xmlStrcmp (node->name, XCSTRING ("cxxflags")))
 	upmf_config.cxxflags = upmf_get_xstring (configdoc, node);
+
       if (!xmlStrcmp (node->name, XCSTRING ("chost")))
 	upmf_config.chost = upmf_get_xstring (configdoc, node);
+
       if (!xmlStrcmp (node->name, XCSTRING ("makeopts")))
 	upmf_config.makeopts = upmf_get_xstring (configdoc, node);
+
       if (!xmlStrcmp (node->name, XCSTRING ("upmfopts")))
 	upmf_config.upmfopts = upmf_get_xstring (configdoc, node);
+
       if (!xmlStrcmp (node->name, XCSTRING ("stow")))
 	upmf_config.stow = upmf_get_xstring (configdoc, node);
 
+      if (!xmlStrcmp (node->name, XCSTRING ("features")))
+	upmf_config.features = upmf_list_init_from_doc (configdoc, node,
+							"feature");
+
       node = node->next;
     }
-
+  xmlFree (node);
   xmlFreeDoc (configdoc);
   free (filestring);
 }
@@ -78,6 +91,6 @@ upmf_config_destroy (void)
   xmlFree (upmf_config.makeopts);
   xmlFree (upmf_config.upmfopts);
   xmlFree (upmf_config.stow);
-  /*gl_list_free (upmf_config.pkgfiles);
-    gl_list_free (upmf_config.features);*/
+  gl_list_free (upmf_config.pkgfiledirs);
+  gl_list_free (upmf_config.features);
 }
