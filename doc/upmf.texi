@@ -1,0 +1,77 @@
+\input texinfo @c -*-texinfo-*-
+@c %**start of header
+@setfilename upmf.info
+@settitle Upmf package manager
+@c %**end of header
+
+@include version.texi
+
+@c %**start of Summary and Copyright
+@copying
+This manual is for Upmf, version @value{VERSION}.
+
+Copyright @copyright{} 2012 Aljosha Papsch
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+A copy of the license is included in the section entitled "GNU
+Free Documentation License".
+@end quotation
+@c %**end of Summary and Copyright
+
+@c %**start of Title and Copyright
+@titlepage
+@title Upmf
+@subtitle Upmf packages much faster
+@author Aljosha Papsch
+
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+@c %**end of Title and Copyright
+
+@c TOC
+@contents
+
+@c %**start of Top Node and Master Menu
+@ifnottex
+@node Top
+@top Upmf
+
+This manual is for Upmf, version @value{VERSION}.
+@end ifnottex
+
+@menu
+* Upmf for Users::
+* Upmf for Developers::
+* Index::
+* Copying::
+@end menu
+@c %**end of Top Node and Master Menu
+
+@c %**start of Body
+@node Upmf for Users, Upmf for Developers, Top, Top
+@chapter Upmf for Users
+Please stand by.
+
+@node Upmf for Developers, Index, Upmf for Users, Top
+@chapter Upmf for Developers
+Please stand by.
+
+@c %**end of Body
+
+@c %**start of End
+@node Index, Copying, Upmf for Developers, Top
+@unnumbered Index
+
+@printindex cp
+
+@node Copying,  , Index, Top
+@chapter Copying
+
+@bye
+@c %**end of End
