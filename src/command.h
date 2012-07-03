@@ -19,15 +19,24 @@
 #define COMMAND_H
 
 #include <config.h>
+#include <stdlib.h>
 
+#include "gl_list.h"
+#include "gl_linked_list.h"
+#include "package.h"
 #include "types.h"
 #include "use.h"
 
+#define UPMF_COMMAND_LIST_NEW gl_list_nx_create_empty \
+  (GL_LINKED_LIST, UCPOINTER (upmf_dep_cmp), NULL, \
+   UCPOINTER (upmf_dep_destroy), FALSE)
+
 struct UpmfCommand
 {
-  upmf_use_t *use;
-  int die;
-  xcstring_t *cmd;
+  long int die;
+  xstring_t cmd;
 };
+
+UPMF_DECLARE_TYPE (command)
 
 #endif /* !COMMAND_H */

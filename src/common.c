@@ -16,7 +16,6 @@
    along with Upmf.  If not, see <http://www.gnu.org/licenses/>. */
 
 #include <config.h>
-
 #include "common.h"
 
 xstring_t
@@ -114,20 +113,4 @@ upmf_str_replace(ucstring_t s, ucstring_t old, ucstring_t new)
   ret[i] = '\0';
 
   return ret;
-}
-
-ustring_t
-upmf_find_pkgfile (ucstring_t pkgname)
-{
-  size_t listlen = gl_list_size (upmf_config.pkgfiledirs);
-  size_t pos;
-
-  for (pos = 0; pos < listlen; pos++)
-    {
-      ucstring_t dir = UCSTRING (gl_list_get_at (upmf_config.pkgfiledirs,
-						 pos));
-      /* TODO continue here */
-    }
-
-  return NULL;
 }

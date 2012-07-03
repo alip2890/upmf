@@ -18,10 +18,10 @@
 #include <config.h>
 #include "use.h"
 
-upmf_use_t*
-upmf_use_new (xmlDocPtr doc, xmlNodePtr node)
+upmf_use_t
+upmf_use_new (xmlDocPtr doc, xmlNodePtr node, upmf_package_t par)
 {
-  upmf_use_t *tempuse = (upmf_use_t*) malloc (sizeof (upmf_use_t));
+  upmf_use_t tempuse = UPMF_USE (malloc (sizeof (struct UpmfUse)));
   tempuse->name = xmlGetProp (node, XSTRING ("name"));
   tempuse->dscr = upmf_get_xstring (doc, node);
   /* Here should be checked whether a use is set or not, for now always true */
@@ -30,28 +30,13 @@ upmf_use_new (xmlDocPtr doc, xmlNodePtr node)
 }
 
 void
-upmf_use_destroy (upmf_use_t *this)
+upmf_use_destroy (upmf_use_t this)
 {
   xmlFree (XSTRING (this->name));
   xmlFree (XSTRING (this->dscr));
   free (this);
 }
 
-gl_list_t
-upmf_use_make_list (xmlDocPtr doc, xmlNodePtr node, upmf_package_t *pack)
-{
-  xmlNodePtr usenode = node->xmlChildrenNode;
-  gl_list_t uselist = gl_list_nx_create_empty (GL_LINKED_LIST, NULL, NULL,
-					       NULL, FALSE);
-  while (usenode != NULL)
-    {
-      if (!xmlStrcmp (usenode->name, XSTRING ("use")))
-	{
-	  upmf_use_t *tempuse = upmf_use_new (doc, node);
-	  gl_list_nx_add_last (uselist, UCPOINTER (tempuse));
-	}
-      usenode = usenode->next;
-    }
-  /*xmlFree (usenode);*/
-  return uselist;
-}
+UPMF_DEFINE_LIST_FUN (use, USE, "uses", "use")
+UPMF_DEFINE_CMP_FUN (use, USE, name)
+

@@ -147,37 +147,6 @@ main (int argc, char **argv)
       upmf_package_tree_new (arguments.package_name);
       printf ("Installing %s\n", arguments.package_name);
     }
-  /*
-  doc = xmlParseFile ("ktorrent.xml");
-  if (doc == NULL)
-    {
-      fprintf (stderr, _("Document not parsed successfully.\n"));
-      return 0;
-    }
-
-  node = xmlDocGetRootElement (doc);
-  if (node == NULL)
-    {
-      fprintf (stderr, "empty document\n");
-      xmlFreeDoc (doc);
-      return 0;
-    }
-
-  if (xmlStrcmp (node->name, XCHAR("package")))
-    {
-      fprintf (stderr, "document of the wrong type, root node != package\n");
-      xmlFreeDoc (doc);
-      return 0;
-    }
-
-  p = upmf_package_new (doc, node);
-
-  printf ("Package %s\nDescription: %s\nURI: %s\n",
-	  p->name, p->dscr, p->uri);
-
-  upmf_package_destroy (p);
-  xmlFreeDoc (doc);
-  xmlFree (node); */
 
   exit (0);
 }

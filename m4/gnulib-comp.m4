@@ -41,6 +41,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module alloca:
   # Code from module alloca-opt:
   # Code from module argp:
+  # Code from module dirent:
   # Code from module dirname-lgpl:
   # Code from module dosname:
   # Code from module double-slash-root:
@@ -120,6 +121,7 @@ gl_ARGP
 m4_ifdef([AM_XGETTEXT_OPTION],
   [AM_][XGETTEXT_OPTION([--flag=argp_error:2:c-format])
    AM_][XGETTEXT_OPTION([--flag=argp_failure:4:c-format])])
+gl_DIRENT_H
 gl_DIRNAME_LGPL
 gl_DOUBLE_SLASH_ROOT
 gl_HEADER_ERRNO_H
@@ -427,6 +429,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/argp.h
   lib/asnprintf.c
   lib/basename-lgpl.c
+  lib/dirent.in.h
   lib/dirname-lgpl.c
   lib/dirname.h
   lib/dosname.h
@@ -496,6 +499,7 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/00gnulib.m4
   m4/alloca.m4
   m4/argp.m4
+  m4/dirent_h.m4
   m4/dirname.m4
   m4/double-slash-root.m4
   m4/errno_h.m4

@@ -23,11 +23,18 @@
 #include "gl_list.h"
 #include "gl_linked_list.h"
 #include "types.h"
+#include "archive.h"
+
+#define UPMF_BUILD_LIST_NEW gl_list_nx_create_empty \
+  (GL_LINKED_LIST, UCPOINTER (upmf_build_cmp), NULL, \
+   UCPOINTER (upmf_build_destroy), FALSE)
 
 struct UpmfBuild
 {
-  xcstring_t type;
+  xstring_t type;
   gl_list_t archivelist;
 };
+
+UPMF_DECLARE_TYPE (build)
 
 #endif /* !BUILD_H */

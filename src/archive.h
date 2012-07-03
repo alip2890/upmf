@@ -20,16 +20,23 @@
 
 #include <config.h>
 
+#include "command.h"
 #include "gl_list.h"
 #include "gl_linked_list.h"
 #include "types.h"
 
+#define UPMF_ARCHIVE_LIST_NEW gl_list_nx_create_empty \
+  (GL_LINKED_LIST, UCPOINTER (upmf_archive_cmp), NULL, \
+   UCPOINTER (upmf_archive_destroy), FALSE)
+
 struct UpmfArchive
 {
-  xcstring_t name;
+  xstring_t name;
   gl_list_t prepare_hook;
   gl_list_t configure_hook;
   gl_list_t commands;
 };
+
+UPMF_DECLARE_TYPE (archive)
 
 #endif /* !ARCHIVE_H */

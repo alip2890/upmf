@@ -49,4 +49,9 @@ along with Upmf.  If not, see <http://www.gnu.org/licenses/>.
     <feature>splitdebug</feature>
   </features>
 
+  <!-- Global useflags -->
+  <uses>
+    <use>alsa</use>
+  </uses>
+
 </settings>

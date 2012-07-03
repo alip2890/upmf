@@ -37,15 +37,15 @@
 
 /* Cast macros for upmf types */
 
-#define UPMF_USE(s) (upmf_use_t*) s
-#define UPMF_PATCH(s) (upmf_patch_t*) s
-#define UPMF_DEP(s) (upmf_dep_t*) s
-#define UPMF_COMMAND(s) (upmf_command_t*) s
-#define UPMF_ARCHIVE(s) (upmf_archive_t*) s
-#define UPMF_BUILD(s) (upmf_build_t*) s
-#define UPMF_RELEASE(s) (upmf_release_t*) s
-#define UPMF_PACKAGE(s) (upmf_package_t*) s
-#define UPMF_CONFIG(s) (upmf_config_t*) s
+#define UPMF_USE(s) (upmf_use_t) s
+#define UPMF_PATCH(s) (upmf_patch_t) s
+#define UPMF_DEP(s) (upmf_dep_t) s
+#define UPMF_COMMAND(s) (upmf_command_t) s
+#define UPMF_ARCHIVE(s) (upmf_archive_t) s
+#define UPMF_BUILD(s) (upmf_build_t) s
+#define UPMF_RELEASE(s) (upmf_release_t) s
+#define UPMF_PACKAGE(s) (upmf_package_t) s
+#define UPMF_CONFIG(s) (upmf_config_t) s
 
 /* Typedefs for non-upmf types */
 
@@ -58,14 +58,58 @@ typedef const char* ucstring_t;
 
 /* Typedefs for upmf types */
 
-typedef struct UpmfUse upmf_use_t;
-typedef struct UpmfPatch upmf_patch_t;
-typedef struct UpmfDep upmf_dep_t;
-typedef struct UpmfCommand upmf_command_t;
-typedef struct UpmfArchive upmf_archive_t;
-typedef struct UpmfBuild upmf_build_t;
-typedef struct UpmfRelease upmf_release_t;
-typedef struct UpmfPackage upmf_package_t;
+typedef struct UpmfUse* upmf_use_t;
+typedef struct UpmfPatch* upmf_patch_t;
+typedef struct UpmfDep* upmf_dep_t;
+typedef struct UpmfCommand* upmf_command_t;
+typedef struct UpmfArchive* upmf_archive_t;
+typedef struct UpmfBuild* upmf_build_t;
+typedef struct UpmfRelease* upmf_release_t;
+typedef struct UpmfPackage* upmf_package_t;
+/* Caution: Here is the star missing: */
 typedef struct UpmfConfig upmf_config_t;
+
+/* Type declaration macro, s is the type name */
+#define UPMF_DECLARE_TYPE(s)						\
+  upmf_##s##_t upmf_##s##_new (xmlDocPtr doc, xmlNodePtr node,		\
+			       upmf_package_t parent);			\
+  void upmf_##s##_destroy (upmf_##s##_t this);				\
+  gl_list_t upmf_##s##_make_list (xmlDocPtr doc, xmlNodePtr node,	\
+				  upmf_package_t parent);		\
+  bool upmf_##s##_cmp (ucpointer_t elt1, ucpointer_t elt2);
+
+/* Defines the list creation function
+   TYPENAME is the lowercase typename,
+   TYPENAMEUP is the uppercase typename,
+   PARTAG is the name of the parent tag of the tags to make a list from,
+   CHILDTAG is the name of the tags to make a list from */
+#define UPMF_DEFINE_LIST_FUN(typename, typenameup, partag, childtag)	\
+  gl_list_t upmf_##typename##_make_list (xmlDocPtr doc, xmlNodePtr node, \
+					 upmf_package_t par)		\
+  {									\
+    if (xmlStrcmp (node->name, XSTRING (partag))) return NULL;		\
+    xmlNodePtr childnode = node->xmlChildrenNode;			\
+    gl_list_t childlist = UPMF_##typenameup##_LIST_NEW;			\
+      while (childnode != NULL)						\
+	{								\
+	  if (!xmlStrcmp (childnode->name, XSTRING (childtag)))		\
+	    {								\
+	      upmf_##typename##_t tempobj = upmf_##typename##_new (doc, \
+								   node, \
+								   par); \
+		if (tempobj != NULL)					\
+		  gl_list_nx_add_last (childlist, UCPOINTER (tempobj));	\
+	    }								\
+	  childnode = childnode->next;					\
+	}								\
+      return childlist;							\
+  }
+
+#define UPMF_DEFINE_CMP_FUN(type, typeup, compmember)			\
+  bool upmf_##type##_cmp (ucpointer_t elt1, ucpointer_t elt2)		\
+  {									\
+    upmf_##type##_t temp = UPMF_##typeup (elt1);			\
+      return !strcmp (temp->compmember, USTRING (elt2));		\
+  }
 
 #endif /* !TYPES_H */

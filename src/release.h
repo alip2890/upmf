@@ -20,18 +20,28 @@
 
 #include <config.h>
 
+#include "build.h"
+#include "dependency.h"
 #include "gl_list.h"
 #include "gl_linked_list.h"
+#include "package.h"
+#include "patch.h"
 #include "types.h"
+
+#define UPMF_RELEASE_LIST_NEW gl_list_nx_create_empty \
+  (GL_LINKED_LIST, UCPOINTER (upmf_release_cmp), NULL, \
+   UCPOINTER (upmf_release_destroy), FALSE)
 
 struct UpmfRelease
 {
-  xcstring_t version;
-  xcstring_t revision;
-  xcstring_t branch;
+  xstring_t version;
+  xstring_t revision;
+  xstring_t branch;
   gl_list_t patchlist;
   gl_list_t deplist;
-  upmf_build_t *build;
+  upmf_build_t build;
 };
+
+UPMF_DECLARE_TYPE (release)
 
 #endif /* !RELEASE_H */

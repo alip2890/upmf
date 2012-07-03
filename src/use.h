@@ -25,20 +25,21 @@
 #include "gl_linked_list.h"
 #include "types.h"
 
+#define UPMF_USE_LIST_NEW gl_list_nx_create_empty \
+  (GL_LINKED_LIST, UCPOINTER (upmf_use_cmp), NULL, \
+   UCPOINTER (upmf_use_destroy), FALSE)
+
 struct UpmfUse
 {
-  xcstring_t name;
-  xcstring_t dscr;
+  xstring_t name;
+  xstring_t dscr;
   int isset;
 };
 
-upmf_use_t*
-upmf_use_new (xmlDocPtr doc, xmlNodePtr node);
+UPMF_DECLARE_TYPE (use)
 
-void
-upmf_use_destroy (upmf_use_t *this);
-
-gl_list_t
-upmf_use_make_list (xmlDocPtr doc, xmlNodePtr node, upmf_package_t *pack);
+/* Checks whether a use flag is set */
+bool
+upmf_use_isset (ustring_t name);
 
 #endif /* !USE_H */

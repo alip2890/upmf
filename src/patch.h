@@ -19,17 +19,25 @@
 #define PATCH_H
 
 #include <config.h>
+#include <string.h>
 
 #include "gl_list.h"
 #include "gl_linked_list.h"
 #include "types.h"
+#include "use.h"
+
+#define UPMF_PATCH_LIST_NEW gl_list_nx_create_empty \
+  (GL_LINKED_LIST, UCPOINTER (upmf_patch_cmp), NULL, \
+   UCPOINTER (upmf_patch_destroy), FALSE)
 
 struct UpmfPatch
 {
-  xcstring_t name;
-  xcstring_t filen;
-  xcstring_t recom;
+  xstring_t name;
+  xstring_t filen;
+  xstring_t recom;
   gl_list_t uselist;
 };
+
+UPMF_DECLARE_TYPE (patch)
 
 #endif /* !PATCH_H */

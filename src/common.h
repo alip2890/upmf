@@ -19,7 +19,10 @@
 #define COMMON_H
 
 #include <config.h>
+#include <dirent.h>
 #include <libxml/xmlIO.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 
 #include "error.h"
 #include "gettext.h"
@@ -27,6 +30,8 @@
 #include "gl_list.h"
 #include "types.h"
 #include "upmf-config.h"
+
+#define NEXT(s) s = s->next
 
 xstring_t
 upmf_get_xstring (xmlDocPtr doc, xmlNodePtr node);
@@ -39,8 +44,5 @@ upmf_list_init_from_doc (xmlDocPtr doc, xmlNodePtr node, ustring_t children);
 
 ustring_t
 upmf_str_replace (ucstring_t s, ucstring_t old, ucstring_t new);
-
-ustring_t
-upmf_find_pkgfile (ucstring_t pkgname);
 
 #endif /* !COMMON_H */

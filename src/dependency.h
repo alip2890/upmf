@@ -22,13 +22,20 @@
 
 #include "gl_list.h"
 #include "gl_linked_list.h"
+#include "package.h"
 #include "types.h"
+#include "use.h"
+
+#define UPMF_DEP_LIST_NEW gl_list_nx_create_empty \
+  (GL_LINKED_LIST, UCPOINTER (upmf_dep_cmp), NULL, \
+   UCPOINTER (upmf_dep_destroy), FALSE)
 
 struct UpmfDep
 {
-  xcstring_t name;
-  xcstring_t version;
-  gl_list_t uselist;
+  xstring_t name;
+  xstring_t version;
 };
+
+UPMF_DECLARE_TYPE (dep)
 
 #endif /* !DEPENDENCY_H */

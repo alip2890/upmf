@@ -19,31 +19,46 @@
 #define PACKAGE_H
 
 #include <config.h>
+#include <errno.h>
+#include <sys/stat.h>
 
 #include "common.h"
 #include "gl_list.h"
 #include "gl_linked_list.h"
+#include "patch.h"
+#include "release.h"
 #include "types.h"
 #include "upmf-config.h"
 #include "use.h"
 
+#define UPMF_PACKAGE_LIST_NEW gl_list_nx_create_empty \
+  (GL_LINKED_LIST, UCPOINTER (upmf_package_cmp), NULL, \
+   UCPOINTER (upmf_package_destroy), FALSE)
+
 struct UpmfPackage
 {
-  xcstring_t name;
-  xcstring_t dscr;
+  xstring_t name;
+  xstring_t dscr;
   xstring_t uri;
+  xstring_t license;
   gl_list_t uselist;
   gl_list_t patchlist;
   gl_list_t releaselist;
 };
 
-upmf_package_t*
+/* upmf_package_t is too special, so no standard declaration
+   UPMF_DECLARE_TYPE (package)*/
+
+upmf_package_t
 upmf_package_new (ucstring_t filen);
 
 void
-upmf_package_destroy (upmf_package_t *this);
+upmf_package_destroy (upmf_package_t this);
 
 gl_list_t
 upmf_package_tree_new (ucstring_t pkgname);
+
+ustring_t
+upmf_package_find_file (ucstring_t pkgname);
 
 #endif /* !PACKAGE_H */

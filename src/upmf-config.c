@@ -73,6 +73,9 @@ upmf_config_init ()
 	upmf_config.features = upmf_list_init_from_doc (configdoc, node,
 							"feature");
 
+      if (!xmlStrcmp (node->name, XCSTRING ("uses")))
+	upmf_config.uses = upmf_use_make_list (configdoc, node, NULL);
+
       node = node->next;
     }
   xmlFree (node);
@@ -91,6 +94,7 @@ upmf_config_destroy (void)
   xmlFree (upmf_config.makeopts);
   xmlFree (upmf_config.upmfopts);
   xmlFree (upmf_config.stow);
-  gl_list_free (upmf_config.pkgfiledirs);
-  gl_list_free (upmf_config.features);
+  if (upmf_config.pkgfiledirs != NULL) gl_list_free (upmf_config.pkgfiledirs);
+  if (upmf_config.features != NULL) gl_list_free (upmf_config.features);
+  if (upmf_config.uses != NULL) gl_list_free (upmf_config.uses);
 }

@@ -37,8 +37,8 @@ own ideas:
   * Sections: Give packages a namespace.  This is much like the first part
     in Gentoo package names, e.g. dev-lang in dev-lang/vala.
   * Installation of a package: Upmf uses GNU Stow for installation of
-    packages.  In contrast, Portage and Upkg install a package to a special
-    install directory, create an archive from that and then extract that
+    packages.  In contrast, Portage installs a package to a special
+    install directory, creates an archive from that and then extracts that
     archive in the root file system.  Upmf + Stow should be faster here,
     especially on big-sized packages.
 
@@ -56,9 +56,9 @@ Acquiring package files
 =======================
 
    Currently, there are no package files available for Upmf.  You can
-find a draft file in this distribution though (draft.xml). Please note
-that package files would be named after the package name, if there were
-some.
+find a draft file in this distribution though (data/ktorrent.xml). It
+is commented from head to foot and gets installed by make install. I
+chose KTorrent because you can make a rather complex package file for it.
 
 Licensing
 =========

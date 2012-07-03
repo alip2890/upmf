@@ -23,8 +23,8 @@ upmf_SOURCES = \
 	common.h common.c \
 	dependency.c dependency.h \
 	gettext.h \
-	package.c package.h \
 	patch.c patch.h \
+	package.c package.h \
 	release.c release.h \
 	types.h \
 	upmf-config.c upmf-config.h \

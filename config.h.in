@@ -209,6 +209,9 @@
    don't. */
 #undef HAVE_DECL__SNPRINTF
 
+/* Define to 1 if you have the <dirent.h> header file. */
+#undef HAVE_DIRENT_H
+
 /* Define to 1 if you have the <features.h> header file. */
 #undef HAVE_FEATURES_H
 
@@ -287,6 +290,9 @@
 /* Define to 1 if you have the `rawmemchr' function. */
 #undef HAVE_RAWMEMCHR
 
+/* Define to 1 if alphasort is declared even after undefining macros. */
+#undef HAVE_RAW_DECL_ALPHASORT
+
 /* Define to 1 if atoll is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_ATOLL
 
@@ -302,6 +308,12 @@
 
 /* Define to 1 if chown is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_CHOWN
+
+/* Define to 1 if closedir is declared even after undefining macros. */
+#undef HAVE_RAW_DECL_CLOSEDIR
+
+/* Define to 1 if dirfd is declared even after undefining macros. */
+#undef HAVE_RAW_DECL_DIRFD
 
 /* Define to 1 if dprintf is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_DPRINTF
@@ -335,6 +347,9 @@
 
 /* Define to 1 if fdatasync is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_FDATASYNC
+
+/* Define to 1 if fdopendir is declared even after undefining macros. */
+#undef HAVE_RAW_DECL_FDOPENDIR
 
 /* Define to 1 if ffs is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_FFS
@@ -468,6 +483,9 @@
 /* Define to 1 if mkstemps is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_MKSTEMPS
 
+/* Define to 1 if opendir is declared even after undefining macros. */
+#undef HAVE_RAW_DECL_OPENDIR
+
 /* Define to 1 if pclose is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_PCLOSE
 
@@ -504,6 +522,9 @@
 /* Define to 1 if rawmemchr is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_RAWMEMCHR
 
+/* Define to 1 if readdir is declared even after undefining macros. */
+#undef HAVE_RAW_DECL_READDIR
+
 /* Define to 1 if readlink is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_READLINK
 
@@ -516,11 +537,17 @@
 /* Define to 1 if renameat is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_RENAMEAT
 
+/* Define to 1 if rewinddir is declared even after undefining macros. */
+#undef HAVE_RAW_DECL_REWINDDIR
+
 /* Define to 1 if rmdir is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_RMDIR
 
 /* Define to 1 if rpmatch is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_RPMATCH
+
+/* Define to 1 if scandir is declared even after undefining macros. */
+#undef HAVE_RAW_DECL_SCANDIR
 
 /* Define to 1 if setenv is declared even after undefining macros. */
 #undef HAVE_RAW_DECL_SETENV

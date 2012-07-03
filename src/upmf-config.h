@@ -27,6 +27,7 @@
 #include "gl_linked_list.h"
 #include "gl_list.h"
 #include "types.h"
+#include "use.h"
 
 struct UpmfConfig
 {
@@ -40,6 +41,7 @@ struct UpmfConfig
   xstring_t stow;
   gl_list_t pkgfiledirs;
   gl_list_t features;
+  gl_list_t uses;
 };
 
 extern upmf_config_t upmf_config;
