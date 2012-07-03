@@ -20,6 +20,7 @@ with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 A copy of the license is included in the section entitled "GNU
 Free Documentation License".
 @end quotation
+@end copying
 @c %**end of Summary and Copyright
 
 @c %**start of Title and Copyright
@@ -39,7 +40,7 @@ Free Documentation License".
 
 @c %**start of Top Node and Master Menu
 @ifnottex
-@node Top
+@node Top, Upmf for Users, (dir), (dir)
 @top Upmf
 
 This manual is for Upmf, version @value{VERSION}.
@@ -54,9 +55,186 @@ This manual is for Upmf, version @value{VERSION}.
 @c %**end of Top Node and Master Menu
 
 @c %**start of Body
-@node Upmf for Users, Upmf for Developers, Top, Top
+@node Upmf for Users
 @chapter Upmf for Users
-Please stand by.
+
+@menu
+* What is Upmf?::
+* Packaging in Upmf::
+* Configuring Upmf::
+* Package files in detail::
+* Managing packages::
+@end menu
+
+@node What is Upmf?, Packaging in Upmf, Upmf for Users, Upmf for Users
+@section What is Upmf?
+
+Upmf is a source based package manager, uniting the good things of two other
+package managers, Gentoo's Portage and Paldo's Upkg, and adding some own
+ideas:
+
+@itemize
+
+@bullet{ Package specification files are written in an enhanced XML format,
+derived from Upkg's XML format.  Additional features include more attributes
+for packages (source URI and license field) as well as concepts borrowed
+from Portage.}
+
+@bullet{ The user can customize the features of a package via Use flags.  If
+a Use flag is enabled, the feature will be built, otherwise not.  Use flags
+are set in XML configuration files.}
+
+@bullet{ Upmf provides predefined ways to build a package.  This avoids
+massive duplication of the same lines such as ./configure && make ... which
+is seen in Upkg's package files.}
+
+@bullet{ Package names consist of two parts: section and actual name, parted
+by a slash.  This allows to use the same name in different sections, e.g.
+xfce/terminal and gnustep/terminal.}
+
+@bullet{ Upmf uses GNU Stow for the installation of packages.  This should
+give Upmf a considerable advantage in speed, since other package managers
+usually install the compiled package in a special directory and then make
+a tarball from it, which gets extracted in the root file system. This time
+consuming process of archiving and extracting does not apply for Upmf.}
+
+@end itemize
+
+The name `Upmf' is a recursive acronym and stands for `Upmf packages much
+faster'.  However, given the current state of development there can't be
+made any reliable statements whether Upmf is faster than other package
+managers or not -- yet.
+
+@node Packaging in Upmf, Configuring Upmf, What is Upmf?, Upmf for Users
+@section Packaging in Upmf
+
+This chapter gives an overview on package management done by Upmf. It
+outlines the techniques from a theoretically viewpoint, see @ref{Managing packages}
+for the practical guy in you.
+
+Packages are identified through a name and a section.  Thus, the package
+xfce/terminal is different from gnustep/terminal. Packages are realised
+in the file system through three ways:
+
+@itemize
+
+@bullet{ The package specification file: This file describes a package in
+full detail.  This includes general information (description, source URI,
+license), dependencies, patches to apply, build instructions, etc. See
+@ref{Package files in detail} for more information on these files. Package
+specifiation files are in a XML format. They reside in one of the package
+file directories specified in the configuration file. The category must be a
+subdirectory in one of those package file directories.}
+
+@bullet{ Installed packages: After building a package according to the
+package specifiation file, Upmf installs the package in its own package
+directory, e.g. xfce/terminal 56.3 goes into /usr/pkg/xfce/terminal/56.3.}
+
+@bullet{ Stowed packages: Installed packages in their package directory
+are not of much use.  They have to be stowed (incorporated in the root
+file system) in order to be used.  Upmf uses GNU Stow for this.  Stow
+creates symlinks to the package directory.  The package seems installed,
+even though ``only'' a few symlinks were made.  If you wonder why the files
+do not simply get installed the ordinary way (by extracting them from a
+tarball), the answer is simple: Creating a tarball costs too much time,
+symlinks on the contrary are created on the fly.  Also, finding the package
+a file belongs to is easy, since the symlink points to the
+package directory.}
+
+@end itemize
+
+@node Configuring Upmf, Package files in detail, Packaging in Upmf, Upmf for Users
+@section Configuring Upmf
+@cindex Configuration
+
+Upmf has a global configuration file, @file{upmf-settings.xml}. It is
+usually stored in the datarootdir directory, e.g. @file{/usr/local/etc},
+depending on the options passed to configure. Here is the default
+configuration explained:
+
+@verbatim
+<settings>
+  <enabled>true</enabled>
+  
+  <packagefiles>
+    <dir>/home/al/usr/share/upmf/packages</dir>
+  </packagefiles>
+  
+  <packagedir>/pkg</packagedir>
+  
+  <cflags>-02 -g -march=native</cflags>
+  <cxxflags></cxxflags>
+  <chost>i686-pc-linux-gnu</chost>
+  <makeopts>-j3</makeopts>
+  <stow>/usr/bin/stow</stow>
+
+  <features>
+    <feature>splitdebug</feature>
+  </features>
+
+  <uses>
+    <use>alsa</use>
+  </uses>
+</settings>
+@end verbatim
+
+@itemize
+@c TODO use the style from glibc manual
+
+@cindex enabled (config key)
+@bullet{ enabled -- The configuration file contains some important
+settings, which can decide about a good or bad going for the software.
+Since the default values might indicate to a bad going on your system,
+the @code{enabled} setting is by default set to false, so that you don't
+forget to review the settings.  If you want to enable the configuration,
+set @code{enabled} to @code{true}.}
+
+@cindex packagefiles (config key)
+@bullet{ packagefiles -- Here you can define the directories Upmf
+will look for package specification files.  They are traversed in order they
+appear in this setting.  Include each directory in a @code{dir} tag.}
+
+@cindex packagedir (config key)
+@bullet{ packagedir -- This sets the base directory for installed
+packages.  Each installed package has its own subdirectory, e.g.
+xfce/terminal 54.8 gets installed in @file{/pkg/xfce/terminal/54.8}.  In
+this case @file{/pkg} is the base directory and would be specified in
+@code{packagedir}.}
+
+@cindex cflags (config key)
+@bullet{ cflags -- Sets the @env{CFLAGS} environment variable.}
+
+@cindex cxxflags (config key)
+@bullet{ cxxflags -- Sets the @env{CXXFLAGS} environment variable.}
+
+@cindex chost (config key)
+@bullet{ chost -- Sets the @env{CHOST} environment variable.}
+
+@cindex makeopts (config key)
+@bullet{ makeopts -- Sets options to be passed to @command{make}.}
+
+@cindex stow (config key)
+@bullet{ stow -- Sets the filename for the Stow executable.}
+
+@cindex features (config key)
+@cindex Configuring features
+@bullet{ features -- Enables certain features.  Possible values are
+not yet determined.}
+
+@cindex uses (config key)
+@cindex Configuring Use flags
+@bullet{ uses -- Use flags enable features in packages, e.g.
+a pinentry package file could define a @samp{gtk} use flag which would
+enable the @option{--with-gtk} option for configure.  In order to enable
+this use flag you would write @samp{gtk} in a @code{use} tag then.}
+
+@end itemize
+
+@node Package files in detail, Managing packages, Configuring Upmf, Upmf for Users
+@section Package files in detail
+
+@node Managing packages,  , Package files in detail, Upmf for Users
+@section Managing packages
 
 @node Upmf for Developers, Index, Upmf for Users, Top
 @chapter Upmf for Developers
