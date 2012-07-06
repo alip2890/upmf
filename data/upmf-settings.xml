@@ -30,6 +30,8 @@ along with Upmf.  If not, see <http://www.gnu.org/licenses/>.
   </packagefiles>
   <!-- Sets the directory where to install packages -->
   <packagedir>/pkg</packagedir>
+  <!-- Sets the directory where to store source files -->
+  <distdir>/tmp</distdir>
 
   <!-- CFLAGS variable -->
   <cflags>-02 -g -march=native</cflags>

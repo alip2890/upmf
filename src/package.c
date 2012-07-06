@@ -47,8 +47,10 @@ upmf_package_new (ucstring_t filen)
       if (!xmlStrcmp (node->name, XSTRING ("patches")))
 	pack->patchlist = upmf_patch_make_list (doc, node, pack);
       if (!xmlStrcmp (node->name, XSTRING ("releases")))
-	pack->releaselist = upmf_release_make_list (doc, node, pack);
-      node = node->next;
+	{
+	  pack->releaselist = upmf_release_make_list (doc, node, pack);
+	}
+      NEXT (node);
     }
   /* NOTE Placeholders (PS, PV, PN) need to replaced when parsing
      releases, because package version is not determined at this stage. */

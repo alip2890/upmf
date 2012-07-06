@@ -49,12 +49,29 @@ upmf_release_new (xmlDocPtr doc, xmlNodePtr node, upmf_package_t parent)
   xmlNodePtr child = node->xmlChildrenNode;
   while (child != NULL)
     {
+      if (!xmlStrcmp (child->name, "uri"))
+	{
+	  xstring_t uribuffer = upmf_get_xstring (doc, child);
+	  
+	  size_t pstring_len = strlen (temp->version) +
+	    strlen (parent->name) + 2;
+	  ustring_t pstring = USTRING (malloc (pstring_len));
+	  snprintf (pstring, pstring_len, "%s-%s", parent->name,
+		    temp->version);
+	  
+	  uribuffer = upmf_str_replace (uribuffer, "{PV}", temp->version);
+	  uribuffer = upmf_str_replace (uribuffer, "{PN}", parent->name);
+	  uribuffer = upmf_str_replace (uribuffer, "{PS}", pstring);
+	  temp->uri = uribuffer;
+
+	  free (pstring);
+	}
       if (!xmlStrcmp (child->name, "deps"))
 	temp->deplist = upmf_dep_make_list (doc, child, parent);
       if (!xmlStrcmp (child->name, "build"))
 	temp->build = upmf_build_new (doc, child, parent);
 
-      child = child->next;
+      NEXT (child);
     }
 }
 

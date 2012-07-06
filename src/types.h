@@ -94,9 +94,8 @@ typedef struct UpmfConfig upmf_config_t;
 	{								\
 	  if (!xmlStrcmp (childnode->name, XSTRING (childtag)))		\
 	    {								\
-	      upmf_##typename##_t tempobj = upmf_##typename##_new (doc, \
-								   node, \
-								   par); \
+	      upmf_##typename##_t tempobj = upmf_##typename##_new	\
+		(doc, childnode, par);					\
 		if (tempobj != NULL)					\
 		  gl_list_nx_add_last (childlist, UCPOINTER (tempobj));	\
 	    }								\
@@ -108,8 +107,8 @@ typedef struct UpmfConfig upmf_config_t;
 #define UPMF_DEFINE_CMP_FUN(type, typeup, compmember)			\
   bool upmf_##type##_cmp (ucpointer_t elt1, ucpointer_t elt2)		\
   {									\
-    upmf_##type##_t temp = UPMF_##typeup (elt1);			\
-      return !strcmp (temp->compmember, USTRING (elt2));		\
+    upmf_##type##_t temp = UPMF_##typeup (elt2);			\
+    return !strcmp (USTRING (elt1), USTRING (temp->compmember));	\
   }
 
 #endif /* !TYPES_H */

@@ -37,6 +37,7 @@ struct UpmfRelease
   xstring_t version;
   xstring_t revision;
   xstring_t branch;
+  xstring_t uri;
   gl_list_t patchlist;
   gl_list_t deplist;
   upmf_build_t build;
