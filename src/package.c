@@ -40,8 +40,6 @@ upmf_package_new (ucstring_t filen)
     {
       if (!xmlStrcmp (node->name, XSTRING ("description")))
 	pack->dscr = upmf_get_xstring (doc, node);
-      if (!xmlStrcmp (node->name, XSTRING ("uri")))
-	pack->uri = upmf_get_xstring (doc, node);
       if (!xmlStrcmp (node->name, XSTRING ("license")))
 	pack->license = upmf_get_xstring (doc, node);
       if (!xmlStrcmp (node->name, XSTRING ("uses")))
@@ -64,7 +62,6 @@ upmf_package_destroy (upmf_package_t this)
 {
   xmlFree (XSTRING (this->name));
   xmlFree (XSTRING (this->dscr));
-  xmlFree (XSTRING (this->uri));
   xmlFree (XSTRING (this->license));
   gl_list_free (this->uselist);
   gl_list_free (this->patchlist);
@@ -79,8 +76,8 @@ upmf_package_tree_new (ucstring_t pkgname)
   if (filen != NULL)
     {
       upmf_package_t top_pack = upmf_package_new (filen);
-      printf ("Package: %s\nDescription: %s\nSource: %s\n\n",
-	      top_pack->name, top_pack->dscr, top_pack->uri);
+      printf ("Package: %s\nDescription: %s\nLicense: %s\n\n",
+	      top_pack->name, top_pack->dscr, top_pack->license);
 
       upmf_package_destroy (top_pack);
       free (filen);

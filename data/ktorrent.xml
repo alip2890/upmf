@@ -21,7 +21,6 @@ spec attribute. It serves the same purpose as EAPI in ebuild. -->
   <!-- upkg actually lacks a source uri tag. Here it is. PV is substituted with
        the package version and PS (package string) is substituted with the package
        name and version ([name]-[version]). -->
-  <uri>http://ktorrent.org/downloads/{PV}/{PS}.tar.bz2</uri>
   <license>GNU GPL v2 or later</license>
   <!-- The use tags serve the same purpose as the USE thingy in Portage.
        Global use flags are set in upmf-config.xml -->
@@ -49,6 +48,7 @@ spec attribute. It serves the same purpose as EAPI in ebuild. -->
          patches attribute: The whitespace seperated list specifies the patches to
 	 apply in this release -->
     <release version="4.2.0" revision="1" branch="stable" patches="kt1">
+      <uri>http://ktorrent.org/downloads/{PV}/{PS}.tar.bz2</uri>
       <deps>
 	<!-- The dep tag was slightly changed. The version is not directly appended
 	     to the package name, but in the optional version attribute.

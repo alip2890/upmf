@@ -39,7 +39,6 @@ struct UpmfPackage
 {
   xstring_t name;
   xstring_t dscr;
-  xstring_t uri;
   xstring_t license;
   gl_list_t uselist;
   gl_list_t patchlist;
