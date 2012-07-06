@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upmf 0.1\n"
 "Report-Msgid-Bugs-To: papsch.al@googlemail.com\n"
-"POT-Creation-Date: 2012-06-27 15:44+0200\n"
+"POT-Creation-Date: 2012-07-04 14:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,14 +42,4 @@ msgstr ""
 #: src/common.c:50
 #, c-format
 msgid "Root element is wrong; is not '%s'"
-msgstr ""
-
-#: src/common.c:221
-#, c-format
-msgid "Unable to open directory %s\n"
-msgstr ""
-
-#: src/common.c:231
-#, c-format
-msgid "Unable to find package %s\n"
 msgstr ""

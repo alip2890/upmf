@@ -17,8 +17,8 @@ Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
 or any later version published by the Free Software Foundation;
 with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
-A copy of the license is included in the section entitled "GNU
-Free Documentation License".
+A copy of the license is included in the section entitled "GNU Free
+Documentation License".
 @end quotation
 @end copying
 @c %**end of Summary and Copyright
@@ -50,7 +50,7 @@ This manual is for Upmf, version @value{VERSION}.
 * Upmf for Users::
 * Upmf for Developers::
 * Index::
-* Copying::
+* GNU Free Documentation License::
 @end menu
 @c %**end of Top Node and Master Menu
 
@@ -108,13 +108,9 @@ managers or not -- yet.
 @node Packaging in Upmf, Configuring Upmf, What is Upmf?, Upmf for Users
 @section Packaging in Upmf
 
-This chapter gives an overview on package management done by Upmf. It
-outlines the techniques from a theoretically viewpoint, see @ref{Managing packages}
-for the practical guy in you.
-
 Packages are identified through a name and a section.  Thus, the package
-xfce/terminal is different from gnustep/terminal. Packages are realised
-in the file system through three ways:
+xfce/terminal is different from gnustep/terminal. The whole file system
+is made up of packages. A package consists of the following parts:
 
 @itemize
 
@@ -183,8 +179,8 @@ configuration explained:
 
 @cindex enabled (config key)
 @bullet{ enabled -- The configuration file contains some important
-settings, which can decide about a good or bad going for the software.
-Since the default values might indicate to a bad going on your system,
+settings, which decide on the welfare of the software to be compiled.
+Since with the default values you might get bad results on your system,
 the @code{enabled} setting is by default set to false, so that you don't
 forget to review the settings.  If you want to enable the configuration,
 set @code{enabled} to @code{true}.}
@@ -243,13 +239,15 @@ Please stand by.
 @c %**end of Body
 
 @c %**start of End
-@node Index, Copying, Upmf for Developers, Top
+@node Index, GNU Free Documentation License, Upmf for Developers, Top
 @unnumbered Index
 
 @printindex cp
 
-@node Copying,  , Index, Top
-@chapter Copying
+@node GNU Free Documentation License,  , Index, Top
+@unnumbered GNU Free Documentation License
+
+@include fdl-1.3.texi
 
 @bye
 @c %**end of End

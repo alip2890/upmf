@@ -8,4 +8,4 @@ upmfdata_DATA = world.xml
 pkgdir = $(datadir)/upmf/packages/net-p2p
 pkg_DATA = ktorrent.xml
 
-EXTRA_DIST = $(upmfconf_DATA) $(pkg_DATA)
+EXTRA_DIST = $(upmfconf_DATA) $(pkg_DATA) $(upmfdata_DATA)
