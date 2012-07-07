@@ -36,6 +36,8 @@ upmf_config_init ()
       return FALSE;
     }
 
+  upmf_config.uses = UPMF_USE_LIST_NEW;
+  
   node = xmlDocGetRootElement (configdoc);
   node = node->xmlChildrenNode;
   while (node != NULL)
@@ -74,7 +76,7 @@ upmf_config_init ()
 							"feature");
 
       if (!xmlStrcmp (node->name, XCSTRING ("uses")))
-	upmf_config.uses = upmf_use_make_list (configdoc, node, NULL);
+	upmf_use_make_list (configdoc, node, NULL, upmf_config.uses);
 
       node = node->next;
     }

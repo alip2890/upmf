@@ -46,6 +46,6 @@ upmf_dep_destroy (upmf_dep_t this)
   free (this);
 }
 
-UPMF_DEFINE_LIST_FUN (dep, DEP, "deps", "dep")
+UPMF_DEFINE_LIST_FUN (dep, "dep")
 UPMF_DEFINE_CMP_FUN (dep, DEP, name)
 

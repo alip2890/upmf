@@ -37,6 +37,6 @@ upmf_use_destroy (upmf_use_t this)
   free (this);
 }
 
-UPMF_DEFINE_LIST_FUN (use, USE, "uses", "use")
+UPMF_DEFINE_LIST_FUN (use, "use")
 UPMF_DEFINE_CMP_FUN (use, USE, name)
 

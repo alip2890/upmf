@@ -34,8 +34,11 @@ upmf_package_new (ucstring_t filen)
   node = xmlDocGetRootElement (doc);
   pack = UPMF_PACKAGE (malloc (sizeof (struct UpmfPackage)));  
   pack->name = xmlGetProp (node, XSTRING ("name"));
-  node = node->xmlChildrenNode;
+  pack->uselist = UPMF_USE_LIST_NEW;
+  pack->patchlist = UPMF_PATCH_LIST_NEW;
+  pack->releaselist = UPMF_RELEASE_LIST_NEW;
 
+  node = node->xmlChildrenNode;
   while (node != NULL)
     {
       if (!xmlStrcmp (node->name, XSTRING ("description")))
@@ -43,12 +46,12 @@ upmf_package_new (ucstring_t filen)
       if (!xmlStrcmp (node->name, XSTRING ("license")))
 	pack->license = upmf_get_xstring (doc, node);
       if (!xmlStrcmp (node->name, XSTRING ("uses")))
-	pack->uselist = upmf_use_make_list (doc, node, pack);
+	upmf_use_make_list (doc, node, pack, pack->uselist);
       if (!xmlStrcmp (node->name, XSTRING ("patches")))
-	pack->patchlist = upmf_patch_make_list (doc, node, pack);
+	upmf_patch_make_list (doc, node, pack, pack->patchlist);
       if (!xmlStrcmp (node->name, XSTRING ("releases")))
 	{
-	  pack->releaselist = upmf_release_make_list (doc, node, pack);
+	  upmf_release_make_list (doc, node, pack, pack->releaselist);
 	}
       NEXT (node);
     }
@@ -78,8 +81,12 @@ upmf_package_tree_new (ucstring_t pkgname)
   if (filen != NULL)
     {
       upmf_package_t top_pack = upmf_package_new (filen);
-      printf ("Package: %s\nDescription: %s\nLicense: %s\n\n",
+      printf ("Package: %s\nDescription: %s\nLicense: %s\n",
 	      top_pack->name, top_pack->dscr, top_pack->license);
+
+      upmf_release_t rel = UPMF_RELEASE
+	(gl_list_get_at (top_pack->releaselist, 0));
+	printf ("URI: %s\n\n", rel->uri);
 
       upmf_package_destroy (top_pack);
       free (filen);

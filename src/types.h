@@ -74,22 +74,18 @@ typedef struct UpmfConfig upmf_config_t;
   upmf_##s##_t upmf_##s##_new (xmlDocPtr doc, xmlNodePtr node,		\
 			       upmf_package_t parent);			\
   void upmf_##s##_destroy (upmf_##s##_t this);				\
-  gl_list_t upmf_##s##_make_list (xmlDocPtr doc, xmlNodePtr node,	\
-				  upmf_package_t parent);		\
+  void upmf_##s##_make_list (xmlDocPtr doc, xmlNodePtr node,	\
+				  upmf_package_t parent, gl_list_t list); \
   bool upmf_##s##_cmp (ucpointer_t elt1, ucpointer_t elt2);
 
 /* Defines the list creation function
    TYPENAME is the lowercase typename,
-   TYPENAMEUP is the uppercase typename,
-   PARTAG is the name of the parent tag of the tags to make a list from,
    CHILDTAG is the name of the tags to make a list from */
-#define UPMF_DEFINE_LIST_FUN(typename, typenameup, partag, childtag)	\
-  gl_list_t upmf_##typename##_make_list (xmlDocPtr doc, xmlNodePtr node, \
-					 upmf_package_t par)		\
+#define UPMF_DEFINE_LIST_FUN(typename, childtag)	\
+  void upmf_##typename##_make_list (xmlDocPtr doc, xmlNodePtr node,	\
+				    upmf_package_t par,	gl_list_t list)	\
   {									\
-    if (xmlStrcmp (node->name, XSTRING (partag))) return NULL;		\
     xmlNodePtr childnode = node->xmlChildrenNode;			\
-    gl_list_t childlist = UPMF_##typenameup##_LIST_NEW;			\
       while (childnode != NULL)						\
 	{								\
 	  if (!xmlStrcmp (childnode->name, XSTRING (childtag)))		\
@@ -97,11 +93,10 @@ typedef struct UpmfConfig upmf_config_t;
 	      upmf_##typename##_t tempobj = upmf_##typename##_new	\
 		(doc, childnode, par);					\
 		if (tempobj != NULL)					\
-		  gl_list_nx_add_last (childlist, UCPOINTER (tempobj));	\
+		  gl_list_nx_add_last (list, UCPOINTER (tempobj));	\
 	    }								\
 	  childnode = childnode->next;					\
 	}								\
-      return childlist;							\
   }
 
 #define UPMF_DEFINE_CMP_FUN(type, typeup, compmember)			\

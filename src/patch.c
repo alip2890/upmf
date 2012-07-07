@@ -26,7 +26,7 @@ upmf_patch_new (xmlDocPtr doc, xmlNodePtr node, upmf_package_t par)
   temppatch->name = xmlGetProp (node, XSTRING ("name"));
   temppatch->filen = xmlGetProp (node, XSTRING ("filen"));
   temppatch->recom = xmlGetProp (node, XSTRING ("recommended"));
-  temppatch->uselist = UPMF_PATCH_LIST_NEW;
+  temppatch->uselist = UPMF_USE_LIST_NEW;
   
   /*  usebuffer = xmlGetProp (node, XSTRING ("use"));
   while ((use_token = strtok (usebuffer, " ")) != NULL)
@@ -49,6 +49,6 @@ upmf_patch_destroy (upmf_patch_t this)
   free (this);
 }
 
-UPMF_DEFINE_LIST_FUN (patch, PATCH, "patches", "patch")
+UPMF_DEFINE_LIST_FUN (patch, "patch")
 UPMF_DEFINE_CMP_FUN (patch, PATCH, name)
 

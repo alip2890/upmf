@@ -25,24 +25,33 @@ upmf_archive_new (xmlDocPtr doc, xmlNodePtr node, upmf_package_t parent)
   
   upmf_archive_t temparch = UPMF_ARCHIVE (malloc (sizeof
 						  (struct UpmfArchive)));
-  temparch->name = xmlGetProp (node, XSTRING ("auto"));
+
+  temparch->name = xmlGetProp (node, XSTRING ("name"));
+  temparch->prepare_hook = UPMF_COMMAND_LIST_NEW;
+  temparch->configure_hook = UPMF_COMMAND_LIST_NEW;
+  temparch->commands = UPMF_COMMAND_LIST_NEW;
+  
   xmlNodePtr child = node->xmlChildrenNode;
   while (child != NULL)
     {
-      if (!xmlStrcmp (node->name, XSTRING ("hook")))
+      if (!xmlStrcmp (child->name, XSTRING ("hook")))
 	{
-	  if (!xmlStrcmp (xmlGetProp (child, "type"), XSTRING ("prepare")))
-	    temparch->prepare_hook = upmf_command_make_list (doc, child,
-							     parent);
-	  if (!xmlStrcmp (xmlGetProp (child, "type"), XSTRING ("configure")))
-	    temparch->configure_hook = upmf_command_make_list (doc, child,
-							       parent);
+	  xstring_t buf = NULL;
+	  buf = xmlGetProp (child, XSTRING ("type"));
+	  if (!xmlStrcmp (buf, XSTRING ("prepare")))
+	    upmf_command_make_list (doc, node, parent, temparch->prepare_hook);
+	  if (!xmlStrcmp (buf, XSTRING ("configure")))
+	    upmf_command_make_list (doc, node, parent,
+				    temparch->configure_hook);
+	  xmlFree (buf);
 	}
       if (!xmlStrcmp (node->name, XSTRING ("commands")))
-	temparch->commands = upmf_command_make_list (doc, child, parent);
+	upmf_command_make_list (doc, node, parent, temparch->commands);
       
       NEXT (child);
     }
+
+  return temparch;
 }
 
 void
@@ -51,10 +60,11 @@ upmf_archive_destroy (upmf_archive_t this)
   if (this == NULL) return;
 
   xmlFree (this->name);
-  if (this->prepare_hook != NULL) gl_list_free (this->prepare_hook);
   if (this->configure_hook != NULL) gl_list_free (this->configure_hook);
+  if (this->prepare_hook != NULL) gl_list_free (this->prepare_hook);
   if (this->commands != NULL) gl_list_free (this->commands);
+  free (this);
 }
 
-UPMF_DEFINE_LIST_FUN (archive, ARCHIVE, "build", "archive")
+UPMF_DEFINE_LIST_FUN (archive, "archive")
 UPMF_DEFINE_CMP_FUN (archive, ARCHIVE, name)

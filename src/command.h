@@ -28,8 +28,8 @@
 #include "use.h"
 
 #define UPMF_COMMAND_LIST_NEW gl_list_nx_create_empty \
-  (GL_LINKED_LIST, UCPOINTER (upmf_dep_cmp), NULL, \
-   UCPOINTER (upmf_dep_destroy), FALSE)
+  (GL_LINKED_LIST, UCPOINTER (upmf_command_cmp), NULL, \
+   UCPOINTER (upmf_command_destroy), FALSE)
 
 struct UpmfCommand
 {

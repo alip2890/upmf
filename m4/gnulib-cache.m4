@@ -27,7 +27,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib --m4-base=m4 --doc-base=doc --tests-base=tests --aux-dir=config --no-conditional-dependencies --no-libtool --macro-prefix=gl argp dirent error linked-list list malloc strdup
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib --m4-base=m4 --doc-base=doc --tests-base=tests --aux-dir=config --with-tests --no-conditional-dependencies --no-libtool --macro-prefix=gl argp dirent error linked-list list malloc strdup
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
@@ -46,6 +46,7 @@ gl_M4_BASE([m4])
 gl_PO_BASE([])
 gl_DOC_BASE([doc])
 gl_TESTS_BASE([tests])
+gl_WITH_TESTS
 gl_LIB([libgnu])
 gl_MAKEFILE_NAME([])
 gl_MACRO_PREFIX([gl])

@@ -33,9 +33,10 @@ upmf_release_new (xmlDocPtr doc, xmlNodePtr node, upmf_package_t parent)
   temp->revision = xmlGetProp (node, XSTRING ("revision"));
   temp->branch = xmlGetProp (node, XSTRING ("branch"));
   temp->patchlist = UPMF_PATCH_LIST_NEW;
+  temp->deplist = UPMF_DEP_LIST_NEW;
 
   patchbuffer = xmlGetProp (node, XSTRING("patches"));
-  while ((patch_token = strtok (patchbuffer, " ")) != NULL)
+  /*while ((patch_token = strtok (patchbuffer, " ")) != NULL)
     {
       gl_list_node_t curpatch = gl_list_search (parent->patchlist,
 						 UCPOINTER (patch_token));
@@ -44,35 +45,36 @@ upmf_release_new (xmlDocPtr doc, xmlNodePtr node, upmf_package_t parent)
 			  gl_list_node_value (parent->patchlist, curpatch));
 
       if (patchbuffer != NULL) xmlFree (patchbuffer);
-    }
+      }*/
 
   xmlNodePtr child = node->xmlChildrenNode;
   while (child != NULL)
     {
       if (!xmlStrcmp (child->name, "uri"))
 	{
-	  xstring_t uribuffer = upmf_get_xstring (doc, child);
-	  
+	  xstring_t uribuffer = upmf_get_xstring (doc, child);	  
 	  size_t pstring_len = strlen (temp->version) +
 	    strlen (parent->name) + 2;
 	  ustring_t pstring = USTRING (malloc (pstring_len));
+	  
 	  snprintf (pstring, pstring_len, "%s-%s", parent->name,
 		    temp->version);
-	  
-	  uribuffer = upmf_str_replace (uribuffer, "{PV}", temp->version);
-	  uribuffer = upmf_str_replace (uribuffer, "{PN}", parent->name);
-	  uribuffer = upmf_str_replace (uribuffer, "{PS}", pstring);
-	  temp->uri = uribuffer;
+	  temp->uri = upmf_str_replace (uribuffer, "{PS}", pstring);
 
 	  free (pstring);
+	  xmlFree (uribuffer);
 	}
       if (!xmlStrcmp (child->name, "deps"))
-	temp->deplist = upmf_dep_make_list (doc, child, parent);
+	upmf_dep_make_list (doc, child, parent, temp->deplist);
       if (!xmlStrcmp (child->name, "build"))
 	temp->build = upmf_build_new (doc, child, parent);
 
       NEXT (child);
     }
+
+  free (patchbuffer);
+
+  return temp;
 }
 
 void
@@ -83,12 +85,13 @@ upmf_release_destroy (upmf_release_t this)
   xmlFree (this->version);
   xmlFree (this->revision);
   xmlFree (this->branch);
+  xmlFree (this->uri);
   gl_list_free (this->patchlist);
   gl_list_free (this->deplist);
   upmf_build_destroy (this->build);
   free (this);
 }
 
-UPMF_DEFINE_LIST_FUN (release, RELEASE, "releases", "release")
+UPMF_DEFINE_LIST_FUN (release, "release")
 UPMF_DEFINE_CMP_FUN (release, RELEASE, version)
 

@@ -25,7 +25,8 @@ upmf_build_new (xmlDocPtr doc, xmlNodePtr node, upmf_package_t parent)
   
   upmf_build_t tempbuild = UPMF_BUILD (malloc (sizeof (struct UpmfBuild)));
   tempbuild->type = xmlGetProp (node, XSTRING ("type"));
-  tempbuild->archivelist = upmf_archive_make_list (doc, node, parent);
+  tempbuild->archivelist = UPMF_ARCHIVE_LIST_NEW;
+  upmf_archive_make_list (doc, node, parent, tempbuild->archivelist);
   return tempbuild;
 }
 
@@ -39,7 +40,7 @@ upmf_build_destroy (upmf_build_t this)
   free (this);
 }
 
-UPMF_DEFINE_LIST_FUN (build, BUILD, "builds", "build")
+UPMF_DEFINE_LIST_FUN (build, "build")
 /* I know, type is not suitable for comparing builds,
    but there is not other string available */
 UPMF_DEFINE_CMP_FUN (build, BUILD, type)

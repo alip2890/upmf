@@ -49,7 +49,7 @@ spec attribute. It serves the same purpose as EAPI in ebuild. -->
       <!-- upkg actually lacks a source uri tag. Here it is. PV is
 	   substituted with the package version and PS (package string)
 	   is substituted with the package name and version. -->
-      <uri>http://ktorrent.org/downloads/{PV}/{PS}.tar.bz2</uri>
+      <uri>http://ktorrent.org/downloads/4.2/{PS}.tar.bz2</uri>
       <deps>
 	<!-- The dep tag was slightly changed. The version is not directly
 	     appended to the package name, but in the optional version

@@ -40,63 +40,152 @@ AC_DEFUN([gl_EARLY],
   AC_REQUIRE([gl_PROG_AR_RANLIB])
   # Code from module alloca:
   # Code from module alloca-opt:
+  # Code from module alloca-opt-tests:
   # Code from module argp:
+  # Code from module argp-tests:
+  # Code from module array-list:
+  # Code from module array-list-tests:
+  # Code from module binary-io:
+  # Code from module binary-io-tests:
+  # Code from module close:
+  # Code from module close-tests:
   # Code from module dirent:
+  # Code from module dirent-tests:
   # Code from module dirname-lgpl:
   # Code from module dosname:
   # Code from module double-slash-root:
+  # Code from module dup2:
+  # Code from module dup2-tests:
+  # Code from module environ:
+  # Code from module environ-tests:
   # Code from module errno:
+  # Code from module errno-tests:
   # Code from module error:
   # Code from module extensions:
   AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
+  # Code from module fcntl-h:
+  # Code from module fcntl-h-tests:
+  # Code from module fd-hook:
+  # Code from module fdopen:
+  # Code from module fdopen-tests:
+  # Code from module fgetc-tests:
   # Code from module float:
+  # Code from module float-tests:
+  # Code from module fpieee:
+  AC_REQUIRE([gl_FP_IEEE])
+  # Code from module fpucw:
+  # Code from module fputc-tests:
+  # Code from module fread-tests:
+  # Code from module fstat:
+  # Code from module fstat-tests:
+  # Code from module fwrite-tests:
+  # Code from module getcwd-lgpl:
+  # Code from module getcwd-lgpl-tests:
   # Code from module getopt-gnu:
   # Code from module getopt-posix:
+  # Code from module getopt-posix-tests:
+  # Code from module getpagesize:
   # Code from module gettext-h:
+  # Code from module ignore-value:
+  # Code from module ignore-value-tests:
   # Code from module include_next:
   # Code from module inline:
   # Code from module intprops:
+  # Code from module intprops-tests:
+  # Code from module inttypes:
+  # Code from module inttypes-incomplete:
+  # Code from module inttypes-tests:
+  # Code from module largefile:
+  AC_REQUIRE([AC_SYS_LARGEFILE])
   # Code from module linked-list:
+  # Code from module linked-list-tests:
   # Code from module list:
+  # Code from module lstat:
+  # Code from module lstat-tests:
   # Code from module malloc:
   # Code from module malloc-gnu:
+  # Code from module malloc-gnu-tests:
   # Code from module malloc-posix:
+  # Code from module malloca:
+  # Code from module malloca-tests:
   # Code from module memchr:
+  # Code from module memchr-tests:
   # Code from module mempcpy:
   # Code from module msvc-inval:
   # Code from module msvc-nothrow:
   # Code from module multiarch:
   # Code from module nocrash:
+  # Code from module open:
+  # Code from module open-tests:
+  # Code from module pathmax:
+  # Code from module pathmax-tests:
+  # Code from module progname:
+  # Code from module putenv:
   # Code from module rawmemchr:
+  # Code from module rawmemchr-tests:
+  # Code from module same-inode:
+  # Code from module setenv:
+  # Code from module setenv-tests:
   # Code from module size_max:
   # Code from module sleep:
+  # Code from module sleep-tests:
   # Code from module snippet/_Noreturn:
   # Code from module snippet/arg-nonnull:
   # Code from module snippet/c++defs:
   # Code from module snippet/warn-on-use:
   # Code from module ssize_t:
+  # Code from module stat:
+  # Code from module stat-tests:
   # Code from module stdalign:
+  # Code from module stdalign-tests:
   # Code from module stdbool:
+  # Code from module stdbool-tests:
   # Code from module stddef:
+  # Code from module stddef-tests:
   # Code from module stdint:
+  # Code from module stdint-tests:
   # Code from module stdio:
+  # Code from module stdio-tests:
   # Code from module stdlib:
+  # Code from module stdlib-tests:
   # Code from module strcase:
   # Code from module strchrnul:
+  # Code from module strchrnul-tests:
   # Code from module strdup:
   # Code from module strerror:
   # Code from module strerror-override:
+  # Code from module strerror-tests:
   # Code from module string:
+  # Code from module string-tests:
   # Code from module strings:
+  # Code from module strings-tests:
   # Code from module strndup:
   # Code from module strnlen:
+  # Code from module strnlen-tests:
+  # Code from module symlink:
+  # Code from module symlink-tests:
+  # Code from module sys_stat:
+  # Code from module sys_stat-tests:
   # Code from module sys_types:
+  # Code from module sys_types-tests:
   # Code from module sysexits:
+  # Code from module sysexits-tests:
+  # Code from module test-framework-sh:
+  # Code from module test-framework-sh-tests:
+  # Code from module time:
+  # Code from module time-tests:
   # Code from module unistd:
+  # Code from module unistd-tests:
+  # Code from module unsetenv:
+  # Code from module unsetenv-tests:
   # Code from module vasnprintf:
+  # Code from module vasnprintf-tests:
   # Code from module verify:
+  # Code from module verify-tests:
   # Code from module vsnprintf:
+  # Code from module vsnprintf-tests:
   # Code from module wchar:
+  # Code from module wchar-tests:
   # Code from module xsize:
 ])
 
@@ -314,6 +403,108 @@ changequote([, ])dnl
   AC_SUBST([gltests_WITNESS])
   gl_module_indicator_condition=$gltests_WITNESS
   m4_pushdef([gl_MODULE_INDICATOR_CONDITION], [$gl_module_indicator_condition])
+AC_REQUIRE([AC_C_INLINE])
+gl_FUNC_CLOSE
+if test $REPLACE_CLOSE = 1; then
+  AC_LIBOBJ([close])
+fi
+gl_UNISTD_MODULE_INDICATOR([close])
+gl_FUNC_DUP2
+if test $HAVE_DUP2 = 0 || test $REPLACE_DUP2 = 1; then
+  AC_LIBOBJ([dup2])
+  gl_PREREQ_DUP2
+fi
+gl_UNISTD_MODULE_INDICATOR([dup2])
+gl_ENVIRON
+gl_UNISTD_MODULE_INDICATOR([environ])
+gl_FCNTL_H
+gl_FUNC_FDOPEN
+if test $REPLACE_FDOPEN = 1; then
+  AC_LIBOBJ([fdopen])
+  gl_PREREQ_FDOPEN
+fi
+gl_STDIO_MODULE_INDICATOR([fdopen])
+gl_FUNC_FSTAT
+if test $REPLACE_FSTAT = 1; then
+  AC_LIBOBJ([fstat])
+  gl_PREREQ_FSTAT
+fi
+gl_SYS_STAT_MODULE_INDICATOR([fstat])
+gl_FUNC_GETCWD_LGPL
+if test $REPLACE_GETCWD = 1; then
+  AC_LIBOBJ([getcwd-lgpl])
+fi
+gl_UNISTD_MODULE_INDICATOR([getcwd])
+gl_FUNC_GETPAGESIZE
+if test $REPLACE_GETPAGESIZE = 1; then
+  AC_LIBOBJ([getpagesize])
+fi
+gl_UNISTD_MODULE_INDICATOR([getpagesize])
+AC_REQUIRE([AC_C_INLINE])
+gl_INTTYPES_H
+gl_INTTYPES_INCOMPLETE
+AC_REQUIRE([gl_LARGEFILE])
+gl_FUNC_LSTAT
+if test $REPLACE_LSTAT = 1; then
+  AC_LIBOBJ([lstat])
+  gl_PREREQ_LSTAT
+fi
+gl_SYS_STAT_MODULE_INDICATOR([lstat])
+gl_MALLOCA
+dnl Check for prerequisites for memory fence checks.
+gl_FUNC_MMAP_ANON
+AC_CHECK_HEADERS_ONCE([sys/mman.h])
+AC_CHECK_FUNCS_ONCE([mprotect])
+gl_FUNC_OPEN
+if test $REPLACE_OPEN = 1; then
+  AC_LIBOBJ([open])
+  gl_PREREQ_OPEN
+fi
+gl_FCNTL_MODULE_INDICATOR([open])
+gl_PATHMAX
+AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
+AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
+gl_FUNC_PUTENV
+if test $REPLACE_PUTENV = 1; then
+  AC_LIBOBJ([putenv])
+fi
+gl_STDLIB_MODULE_INDICATOR([putenv])
+dnl Check for prerequisites for memory fence checks.
+gl_FUNC_MMAP_ANON
+AC_CHECK_HEADERS_ONCE([sys/mman.h])
+AC_CHECK_FUNCS_ONCE([mprotect])
+gl_FUNC_SETENV
+if test $HAVE_SETENV = 0 || test $REPLACE_SETENV = 1; then
+  AC_LIBOBJ([setenv])
+fi
+gl_STDLIB_MODULE_INDICATOR([setenv])
+AC_CHECK_DECLS_ONCE([alarm])
+gl_FUNC_STAT
+if test $REPLACE_STAT = 1; then
+  AC_LIBOBJ([stat])
+  gl_PREREQ_STAT
+fi
+gl_SYS_STAT_MODULE_INDICATOR([stat])
+gt_TYPE_WCHAR_T
+gt_TYPE_WINT_T
+dnl Check for prerequisites for memory fence checks.
+gl_FUNC_MMAP_ANON
+AC_CHECK_HEADERS_ONCE([sys/mman.h])
+AC_CHECK_FUNCS_ONCE([mprotect])
+gl_FUNC_SYMLINK
+if test $HAVE_SYMLINK = 0 || test $REPLACE_SYMLINK = 1; then
+  AC_LIBOBJ([symlink])
+fi
+gl_UNISTD_MODULE_INDICATOR([symlink])
+gl_HEADER_SYS_STAT_H
+AC_PROG_MKDIR_P
+gl_HEADER_TIME_H
+gl_FUNC_UNSETENV
+if test $HAVE_UNSETENV = 0 || test $REPLACE_UNSETENV = 1; then
+  AC_LIBOBJ([unsetenv])
+  gl_PREREQ_UNSETENV
+fi
+gl_STDLIB_MODULE_INDICATOR([unsetenv])
   m4_popdef([gl_MODULE_INDICATOR_CONDITION])
   m4_ifval(gltests_LIBSOURCES_LIST, [
     m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
@@ -349,6 +540,8 @@ changequote([, ])dnl
   AC_SUBST([LIBGNU_LIBDEPS])
   LIBGNU_LTLIBDEPS="$gl_ltlibdeps"
   AC_SUBST([LIBGNU_LTLIBDEPS])
+  LIBTESTS_LIBDEPS="$gltests_libdeps"
+  AC_SUBST([LIBTESTS_LIBDEPS])
 ])
 
 # Like AC_LIBOBJ, except that the module name goes
@@ -499,37 +692,59 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/00gnulib.m4
   m4/alloca.m4
   m4/argp.m4
+  m4/close.m4
   m4/dirent_h.m4
   m4/dirname.m4
   m4/double-slash-root.m4
+  m4/dup2.m4
+  m4/eealloc.m4
+  m4/environ.m4
   m4/errno_h.m4
   m4/error.m4
   m4/exponentd.m4
   m4/extensions.m4
+  m4/fcntl-o.m4
+  m4/fcntl_h.m4
+  m4/fdopen.m4
   m4/float_h.m4
+  m4/fpieee.m4
+  m4/fstat.m4
+  m4/getcwd.m4
   m4/getopt.m4
+  m4/getpagesize.m4
   m4/gl_list.m4
   m4/gnulib-common.m4
   m4/include_next.m4
   m4/inline.m4
   m4/intmax_t.m4
+  m4/inttypes-pri.m4
+  m4/inttypes.m4
   m4/inttypes_h.m4
+  m4/largefile.m4
   m4/longlong.m4
+  m4/lstat.m4
   m4/malloc.m4
+  m4/malloca.m4
   m4/math_h.m4
   m4/memchr.m4
   m4/mempcpy.m4
   m4/mmap-anon.m4
+  m4/mode_t.m4
   m4/msvc-inval.m4
   m4/msvc-nothrow.m4
   m4/multiarch.m4
   m4/nocrash.m4
   m4/off_t.m4
+  m4/open.m4
+  m4/pathmax.m4
   m4/printf.m4
+  m4/putenv.m4
   m4/rawmemchr.m4
+  m4/setenv.m4
   m4/size_max.m4
   m4/sleep.m4
   m4/ssize_t.m4
+  m4/stat.m4
   m4/stdalign.m4
   m4/stdbool.m4
   m4/stddef_h.m4
@@ -545,9 +760,12 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strings_h.m4
   m4/strndup.m4
   m4/strnlen.m4
+  m4/symlink.m4
   m4/sys_socket_h.m4
+  m4/sys_stat_h.m4
   m4/sys_types_h.m4
   m4/sysexits.m4
+  m4/time_h.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/vsnprintf.m4
@@ -556,4 +774,105 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/wchar_t.m4
   m4/wint_t.m4
   m4/xsize.m4
+  tests/init.sh
+  tests/macros.h
+  tests/signature.h
+  tests/test-alloca-opt.c
+  tests/test-argp-2.sh
+  tests/test-argp.c
+  tests/test-array_list.c
+  tests/test-binary-io.c
+  tests/test-binary-io.sh
+  tests/test-close.c
+  tests/test-dirent.c
+  tests/test-dup2.c
+  tests/test-environ.c
+  tests/test-errno.c
+  tests/test-fcntl-h.c
+  tests/test-fdopen.c
+  tests/test-fgetc.c
+  tests/test-float.c
+  tests/test-fputc.c
+  tests/test-fread.c
+  tests/test-fstat.c
+  tests/test-fwrite.c
+  tests/test-getcwd-lgpl.c
+  tests/test-getopt.c
+  tests/test-getopt.h
+  tests/test-getopt_long.h
+  tests/test-ignore-value.c
+  tests/test-init.sh
+  tests/test-intprops.c
+  tests/test-inttypes.c
+  tests/test-linked_list.c
+  tests/test-lstat.c
+  tests/test-lstat.h
+  tests/test-malloc-gnu.c
+  tests/test-malloca.c
+  tests/test-memchr.c
+  tests/test-open.c
+  tests/test-open.h
+  tests/test-pathmax.c
+  tests/test-rawmemchr.c
+  tests/test-setenv.c
+  tests/test-sleep.c
+  tests/test-stat.c
+  tests/test-stat.h
+  tests/test-stdalign.c
+  tests/test-stdbool.c
+  tests/test-stddef.c
+  tests/test-stdint.c
+  tests/test-stdio.c
+  tests/test-stdlib.c
+  tests/test-strchrnul.c
+  tests/test-strerror.c
+  tests/test-string.c
+  tests/test-strings.c
+  tests/test-strnlen.c
+  tests/test-symlink.c
+  tests/test-symlink.h
+  tests/test-sys_stat.c
+  tests/test-sys_types.c
+  tests/test-sys_wait.h
+  tests/test-sysexits.c
+  tests/test-time.c
+  tests/test-unistd.c
+  tests/test-unsetenv.c
+  tests/test-vasnprintf.c
+  tests/test-verify.c
+  tests/test-verify.sh
+  tests/test-vsnprintf.c
+  tests/test-wchar.c
+  tests/zerosize-ptr.h
+  tests=lib/binary-io.h
+  tests=lib/close.c
+  tests=lib/dup2.c
+  tests=lib/fcntl.in.h
+  tests=lib/fd-hook.c
+  tests=lib/fd-hook.h
+  tests=lib/fdopen.c
+  tests=lib/fpucw.h
+  tests=lib/fstat.c
+  tests=lib/getcwd-lgpl.c
+  tests=lib/getpagesize.c
+  tests=lib/gl_array_list.c
+  tests=lib/gl_array_list.h
+  tests=lib/ignore-value.h
+  tests=lib/inttypes.in.h
+  tests=lib/lstat.c
+  tests=lib/malloca.c
+  tests=lib/malloca.h
+  tests=lib/malloca.valgrind
+  tests=lib/open.c
+  tests=lib/pathmax.h
+  tests=lib/progname.c
+  tests=lib/progname.h
+  tests=lib/putenv.c
+  tests=lib/same-inode.h
+  tests=lib/setenv.c
+  tests=lib/stat.c
+  tests=lib/symlink.c
+  tests=lib/sys_stat.in.h
+  tests=lib/time.in.h
+  tests=lib/unsetenv.c
 ])

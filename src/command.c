@@ -45,23 +45,21 @@ upmf_command_destroy (upmf_command_t this)
   free (this);
 }
 
-gl_list_t
+void
 upmf_command_make_list (xmlDocPtr doc, xmlNodePtr node,
-				       upmf_package_t par)
+			upmf_package_t par, gl_list_t list)
 {
   xmlNodePtr childnode = node->xmlChildrenNode;
-  gl_list_t childlist = UPMF_COMMAND_LIST_NEW;
     while (childnode != NULL)
       {
 	if (!xmlStrcmp (childnode->name, XSTRING ("cmd")))
 	  {
 	    upmf_command_t tempobj = upmf_command_new (doc, node, par);
 	      if (tempobj != NULL)
-		gl_list_nx_add_last (childlist, UCPOINTER (tempobj));
+		gl_list_nx_add_last (list, UCPOINTER (tempobj));
 	  }
 	childnode = childnode->next;
       }
-    return childlist;
 }
 
 UPMF_DEFINE_CMP_FUN (command, COMMAND, cmd)
