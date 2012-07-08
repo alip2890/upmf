@@ -1,0 +1,10 @@
+2012-07-08  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* src/upmf-config.h: New struct arguments
+	* src/upmf.c: Removed struct arguments
+	(main): Pass &arguments instead arguments.package_name to
+	upmf_package_tree_new
+	* src/package.c (upmf_package_tree_new): Information about package
+	is only printed when not qiet. Changed arguments
+	* src/package.h: Changed arguments for upmf_package_tree_new
+

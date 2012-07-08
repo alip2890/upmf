@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upmf 0.1\n"
 "Report-Msgid-Bugs-To: papsch.al@googlemail.com\n"
-"POT-Creation-Date: 2012-07-04 14:51+0200\n"
+"POT-Creation-Date: 2012-07-08 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/upmf.c:118
+#: src/upmf.c:111
 #, c-format
 msgid "Could not load configuration, aborting"
 msgstr ""
 
-#: src/upmf.c:124
+#: src/upmf.c:117
 #, c-format
 msgid ""
 "Configuration file is not enabled\n"
