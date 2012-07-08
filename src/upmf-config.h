@@ -44,6 +44,14 @@ struct UpmfConfig
   gl_list_t uses;
 };
 
+/* Command line arguments, for argp */
+struct arguments
+{
+  char *args[1];
+  int quiet, update, upgrade;
+  char *package_name;
+};
+
 extern upmf_config_t upmf_config;
 
 int

@@ -75,25 +75,29 @@ upmf_package_destroy (upmf_package_t this)
 }
 
 gl_list_t
-upmf_package_tree_new (ucstring_t pkgname)
+upmf_package_tree_new (struct arguments *args)
 {
-  ustring_t filen = upmf_package_find_file (pkgname);
+  ustring_t filen = upmf_package_find_file (args->package_name);
   if (filen != NULL)
     {
       upmf_package_t top_pack = upmf_package_new (filen);
-      printf ("Package: %s\nDescription: %s\nLicense: %s\n",
-	      top_pack->name, top_pack->dscr, top_pack->license);
+      if (!args->quiet)
+	{
+	  upmf_release_t rel = UPMF_RELEASE
+	    (gl_list_get_at (top_pack->releaselist, 0));
 
-      upmf_release_t rel = UPMF_RELEASE
-	(gl_list_get_at (top_pack->releaselist, 0));
-	printf ("URI: %s\n\n", rel->uri);
+	  printf ("Package: %s\nDescription: %s\nLicense: %s\n"\
+		  "URI: %s\n\n",
+		  top_pack->name, top_pack->dscr,
+		  top_pack->license, rel->uri);
+	}
 
       upmf_package_destroy (top_pack);
       free (filen);
     }
   else
     {
-      error (1, 0, _("Error processing package file, aborting"));
+      error (1, 0, _("Error processing package information, aborting"));
     }
   return NULL;
 }

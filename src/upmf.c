@@ -45,13 +45,6 @@ static struct argp_option options[] = {
   { NULL }
 };
 
-struct arguments
-{
-  char *args[1];
-  int quiet, update, upgrade;
-  char *package_name;
-};
-
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
 {
@@ -144,7 +137,7 @@ main (int argc, char **argv)
 
   if (strcmp (arguments.package_name, "-"))
     {
-      upmf_package_tree_new (arguments.package_name);
+      upmf_package_tree_new (&arguments);
       printf ("Installing %s\n", arguments.package_name);
     }
 
