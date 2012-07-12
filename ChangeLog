@@ -1,5 +1,6 @@
 2012-07-12  Aljosha Papsch  <papsch.al@googlemail.com>
 
+	* data/ktorrent.xml: Added sections to dependencies
 	* po/POTFILES.in: Added src/package.c
 	* src/package.c (upmf_package_new, upmf_package_destroy): Added
 	support for section attribute in XML files
@@ -7,9 +8,9 @@
 	filled with package instances of package and dependencies
 	New argument gl_list_t plist
 	Add package only to list if not a duplicate
-	Print look up message if verbose
 	(upmf_package_find_file): Changed error message when package file
 	was not found
+	Print look up message if verbose
 	(upmf_package_cmp): New function to compare two packages
 	* src/package.h: Added xstring_t section to struct UpmfPackage
 	Changed header for upmf_package_tree_new: Now returns void,

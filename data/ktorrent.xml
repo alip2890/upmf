@@ -56,13 +56,13 @@ spec attribute. It serves the same purpose as EAPI in ebuild. -->
 	     attribute. The optional use attribute defines for which use
 	     value to enable the dependency. It must be one of the use
 	     values defined in the uses tag. -->
-	<dep name="libktorrent" version="4.2.0" />
-	<dep name="geoip" use="infowidget" />
-	<dep name="taglib" version="1.5" use="mediaplayer" />
-	<dep name="libtaskmanager" use="plasma" />
-	<dep name="kdepimlibs" use="rss" />
-	<dep name="libworkspace" use="shutdown" />
-	<dep name="solid" use="shutdown" />
+	<dep name="kdelibs/libktorrent" version="4.2.0" />
+	<dep name="netlibs/geoip" use="infowidget" />
+	<dep name="medialibs/taglib" version="1.5" use="mediaplayer" />
+	<dep name="libs/libtaskmanager" use="plasma" />
+	<dep name="kdelibs/kdepimlibs" use="rss" />
+	<dep name="kdelibs/libworkspace" use="shutdown" />
+	<dep name="kdelibs/solid" use="shutdown" />
       </deps>
       <build type="cmake">
 	<!-- Added: If a package uses a generic building process, you can

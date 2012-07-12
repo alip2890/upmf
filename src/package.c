@@ -80,8 +80,6 @@ void
 upmf_package_tree_new (ucstring_t pname, gl_list_t plist)
 {
   ustring_t filen = upmf_package_find_file (pname);
-  if (!arguments.quiet)
-    printf ("Looking up %s\n", filen);
   if (filen != NULL)
     {
       /* No need to check for NULL pointer, since upmf_package_new
@@ -126,6 +124,9 @@ upmf_package_find_file (ucstring_t pkgname)
   size_t listlen, pos;
   ucstring_t pkgfiledir;
   ustring_t pkgname_cpy, pcat, pname, pfilestr = NULL;
+
+  if (!arguments.quiet)
+    printf (_("Looking up %s\n"), pkgname);
 
   pkgname_cpy = strdup (pkgname);
   pcat = strtok (pkgname_cpy, "/");
