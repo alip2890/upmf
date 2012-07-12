@@ -32,7 +32,7 @@
 #include "use.h"
 
 #define UPMF_PACKAGE_LIST_NEW gl_list_nx_create_empty \
-  (GL_LINKED_LIST, NULL, NULL, \
+  (GL_LINKED_LIST, UCPOINTER (upmf_package_cmp), NULL,	\
    UCPOINTER (upmf_package_destroy), FALSE)
 
 struct UpmfPackage
@@ -60,5 +60,8 @@ upmf_package_tree_new (ucstring_t pkgname, gl_list_t plist);
 
 ustring_t
 upmf_package_find_file (ucstring_t pkgname);
+
+bool
+upmf_package_cmp (ucpointer_t p1, ucpointer_t p2);
 
 #endif /* !PACKAGE_H */

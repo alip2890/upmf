@@ -80,11 +80,25 @@ void
 upmf_package_tree_new (ucstring_t pname, gl_list_t plist)
 {
   ustring_t filen = upmf_package_find_file (pname);
+  if (!arguments.quiet)
+    printf ("Looking up %s\n", filen);
   if (filen != NULL)
     {
       /* No need to check for NULL pointer, since upmf_package_new
 	 aborts the program in case of error */
       upmf_package_t pack = upmf_package_new (filen);
+
+      for (int mpos = gl_list_size (plist) -1; mpos >= 0; mpos--)
+	{
+	  ucpointer_t tpack = gl_list_get_at (plist, mpos);
+	  if (upmf_package_cmp (UCPOINTER (pack), tpack))
+	    {
+	      upmf_package_destroy (pack);
+	      free (filen);
+	      return;
+	    }
+	}
+
       gl_list_nx_add_last (plist, UCPOINTER (pack));
       free (filen);
 
@@ -92,7 +106,7 @@ upmf_package_tree_new (ucstring_t pname, gl_list_t plist)
 					       (pack->releaselist, 0));
       if (newestrel == NULL)
 	return;
-      
+
       for (int pos = 0; pos < gl_list_size (newestrel->deplist); pos++)
 	{
 	  upmf_dep_t dep = UPMF_DEP (gl_list_get_at
@@ -149,4 +163,15 @@ upmf_package_find_file (ucstring_t pkgname)
 
   error (0, 0, _("Package file not found for %s"), pkgname);
   return NULL;
+}
+
+bool
+upmf_package_cmp (ucpointer_t p1, ucpointer_t p2)
+{
+  upmf_package_t pp1 = UPMF_PACKAGE (p1);
+  upmf_package_t pp2 = UPMF_PACKAGE (p2);
+  if (!xmlStrcmp (pp1->name, pp2->name)
+      && !xmlStrcmp (pp1->section, pp2->section))
+    return TRUE;
+  return FALSE;
 }

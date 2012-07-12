@@ -37,8 +37,8 @@ static char doc[] = "Upmf -- package manager";
 static char args_doc[] = "PACKAGE";
 
 static struct argp_option options[] = {
-  { "verbose", 'v', 0, 0, "Produce verbose output (default)" },
-  { "quiet", 'q', 0, 0, "Produce less verbose output, including no build output" },
+  { "verbose", 'v', 0, 0, "Produce verbose output" },
+  { "quiet", 'q', 0, 0, "Produce less verbose output, including no build output (default)" },
   { "install", 'i', "PACKAGE", 0, "Build and install PACKAGE" },
   { "update", 'u', 0, 0, "Update package files from remote server" },
   { "upgrade", 'g', 0, 0, "Upgrade packages on system" },
@@ -81,7 +81,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
 static struct argp argp = { options, parse_opt, args_doc, doc };
 
+struct arguments arguments;
+
 /* Main program */
+
 
 void
 upmf_exit(void)
@@ -92,11 +95,6 @@ upmf_exit(void)
 int
 main (int argc, char **argv)
 {
-  /*
-  xmlDocPtr doc;
-  xmlNodePtr node;
-  UpmfPackage *p; */
-  struct arguments arguments;
 
 #ifdef ENABLE_NLS
   setlocale (LC_ALL, "");
@@ -118,7 +116,7 @@ main (int argc, char **argv)
       exit (2);
     }
 
-  arguments.quiet = FALSE;
+  arguments.quiet = TRUE;
   arguments.update = FALSE;
   arguments.upgrade = FALSE;
   arguments.package_name = "-";
@@ -143,7 +141,7 @@ main (int argc, char **argv)
       for (int pos = 0; pos < gl_list_size (plist); pos++)
 	{
 	  upmf_package_t p = UPMF_PACKAGE (gl_list_get_at (plist, pos));
-	  printf (_("Pending package: %s/%s\n"), p->section, p->name);
+	  printf (_("New: %s/%s\n"), p->section, p->name);
 	}
 
       gl_list_free (plist);

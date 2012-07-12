@@ -53,6 +53,7 @@ struct arguments
 };
 
 extern upmf_config_t upmf_config;
+extern struct arguments arguments;
 
 int
 upmf_config_init ();
