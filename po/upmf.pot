@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: upmf 0.1\n"
 "Report-Msgid-Bugs-To: papsch.al@googlemail.com\n"
-"POT-Creation-Date: 2012-07-08 16:52+0200\n"
+"POT-Creation-Date: 2012-07-12 15:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +29,16 @@ msgid ""
 "Please set the tag enabled to true"
 msgstr ""
 
+#: src/upmf.c:146
+#, c-format
+msgid "Pending package: %s/%s\n"
+msgstr ""
+
+#: src/upmf.c:151
+#, c-format
+msgid "Installing %s\n"
+msgstr ""
+
 #: src/common.c:36
 #, c-format
 msgid "Document not parsed successfully"
@@ -42,4 +52,29 @@ msgstr ""
 #: src/common.c:50
 #, c-format
 msgid "Root element is wrong; is not '%s'"
+msgstr ""
+
+#: src/package.c:31
+#, c-format
+msgid "Error processing package file, aborting"
+msgstr ""
+
+#: src/package.c:103
+#, c-format
+msgid "Error processing package information, aborting"
+msgstr ""
+
+#: src/package.c:119
+#, c-format
+msgid "No section specified"
+msgstr ""
+
+#: src/package.c:120
+#, c-format
+msgid "Format for package names is `section/name'\n"
+msgstr ""
+
+#: src/package.c:148
+#, c-format
+msgid "Package file not found for %s"
 msgstr ""

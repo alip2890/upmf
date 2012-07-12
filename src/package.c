@@ -34,6 +34,7 @@ upmf_package_new (ucstring_t filen)
   node = xmlDocGetRootElement (doc);
   pack = UPMF_PACKAGE (malloc (sizeof (struct UpmfPackage)));  
   pack->name = xmlGetProp (node, XSTRING ("name"));
+  pack->section = xmlGetProp (node, XSTRING ("section"));
   pack->uselist = UPMF_USE_LIST_NEW;
   pack->patchlist = UPMF_PATCH_LIST_NEW;
   pack->releaselist = UPMF_RELEASE_LIST_NEW;
@@ -66,6 +67,7 @@ void
 upmf_package_destroy (upmf_package_t this)
 {
   xmlFree (XSTRING (this->name));
+  xmlFree (XSTRING (this->section));
   xmlFree (XSTRING (this->dscr));
   xmlFree (XSTRING (this->license));
   gl_list_free (this->uselist);
@@ -74,32 +76,34 @@ upmf_package_destroy (upmf_package_t this)
   free (this);
 }
 
-gl_list_t
-upmf_package_tree_new (struct arguments *args)
+void
+upmf_package_tree_new (ucstring_t pname, gl_list_t plist)
 {
-  ustring_t filen = upmf_package_find_file (args->package_name);
+  ustring_t filen = upmf_package_find_file (pname);
   if (filen != NULL)
     {
-      upmf_package_t top_pack = upmf_package_new (filen);
-      if (!args->quiet)
-	{
-	  upmf_release_t rel = UPMF_RELEASE
-	    (gl_list_get_at (top_pack->releaselist, 0));
-
-	  printf ("Package: %s\nDescription: %s\nLicense: %s\n"\
-		  "URI: %s\n\n",
-		  top_pack->name, top_pack->dscr,
-		  top_pack->license, rel->uri);
-	}
-
-      upmf_package_destroy (top_pack);
+      /* No need to check for NULL pointer, since upmf_package_new
+	 aborts the program in case of error */
+      upmf_package_t pack = upmf_package_new (filen);
+      gl_list_nx_add_last (plist, UCPOINTER (pack));
       free (filen);
+
+      upmf_release_t newestrel = UPMF_RELEASE (gl_list_get_at
+					       (pack->releaselist, 0));
+      if (newestrel == NULL)
+	return;
+      
+      for (int pos = 0; pos < gl_list_size (newestrel->deplist); pos++)
+	{
+	  upmf_dep_t dep = UPMF_DEP (gl_list_get_at
+				     (newestrel->deplist, pos));
+	  upmf_package_tree_new (dep->name, plist);
+	}
     }
   else
     {
       error (1, 0, _("Error processing package information, aborting"));
     }
-  return NULL;
 }
 
 ustring_t
@@ -143,6 +147,6 @@ upmf_package_find_file (ucstring_t pkgname)
   free (pfilestr);
   free (pkgname_cpy);
 
-  error (0, 0, _("No package file found"));
+  error (0, 0, _("Package file not found for %s"), pkgname);
   return NULL;
 }

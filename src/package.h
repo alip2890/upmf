@@ -32,12 +32,13 @@
 #include "use.h"
 
 #define UPMF_PACKAGE_LIST_NEW gl_list_nx_create_empty \
-  (GL_LINKED_LIST, UCPOINTER (upmf_package_cmp), NULL, \
+  (GL_LINKED_LIST, NULL, NULL, \
    UCPOINTER (upmf_package_destroy), FALSE)
 
 struct UpmfPackage
 {
   xstring_t name;
+  xstring_t section;
   xstring_t dscr;
   xstring_t license;
   gl_list_t uselist;
@@ -54,8 +55,8 @@ upmf_package_new (ucstring_t filen);
 void
 upmf_package_destroy (upmf_package_t this);
 
-gl_list_t
-upmf_package_tree_new (struct arguments *args);
+void
+upmf_package_tree_new (ucstring_t pkgname, gl_list_t plist);
 
 ustring_t
 upmf_package_find_file (ucstring_t pkgname);

@@ -137,8 +137,18 @@ main (int argc, char **argv)
 
   if (strcmp (arguments.package_name, "-"))
     {
-      upmf_package_tree_new (&arguments);
-      printf ("Installing %s\n", arguments.package_name);
+      gl_list_t plist = UPMF_PACKAGE_LIST_NEW;
+      upmf_package_tree_new (arguments.package_name, plist);
+
+      for (int pos = 0; pos < gl_list_size (plist); pos++)
+	{
+	  upmf_package_t p = UPMF_PACKAGE (gl_list_get_at (plist, pos));
+	  printf (_("Pending package: %s/%s\n"), p->section, p->name);
+	}
+
+      gl_list_free (plist);
+      
+      printf (_("Installing %s\n"), arguments.package_name);
     }
 
   exit (0);

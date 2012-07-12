@@ -1,3 +1,4 @@
 # List of source files which contain translatable strings.
 src/upmf.c
 src/common.c
+src/package.c
