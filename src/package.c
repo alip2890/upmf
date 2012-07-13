@@ -77,7 +77,7 @@ upmf_package_destroy (upmf_package_t this)
 }
 
 void
-upmf_package_tree_new (ucstring_t pname, gl_list_t plist)
+upmf_package_deplist_new (ucstring_t pname, gl_list_t plist)
 {
   ustring_t filen = upmf_package_find_file (pname);
   if (filen != NULL)
@@ -86,6 +86,7 @@ upmf_package_tree_new (ucstring_t pname, gl_list_t plist)
 	 aborts the program in case of error */
       upmf_package_t pack = upmf_package_new (filen);
 
+      /* Check for duplicate */
       for (int mpos = gl_list_size (plist) -1; mpos >= 0; mpos--)
 	{
 	  ucpointer_t tpack = gl_list_get_at (plist, mpos);
@@ -105,11 +106,13 @@ upmf_package_tree_new (ucstring_t pname, gl_list_t plist)
       if (newestrel == NULL)
 	return;
 
+      /* Go through the dependency list and add them to the list,
+	 do this recursively */
       for (int pos = 0; pos < gl_list_size (newestrel->deplist); pos++)
 	{
 	  upmf_dep_t dep = UPMF_DEP (gl_list_get_at
 				     (newestrel->deplist, pos));
-	  upmf_package_tree_new (dep->name, plist);
+	  upmf_package_deplist_new (dep->name, plist);
 	}
     }
   else

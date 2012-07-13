@@ -1,3 +1,8 @@
+2012-07-13  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* src/package.h: Changed upmf_package_tree_new to
+	upmf_package_deplist_new
+
 2012-07-12  Aljosha Papsch  <papsch.al@googlemail.com>
 
 	* data/ktorrent.xml: Added sections to dependencies

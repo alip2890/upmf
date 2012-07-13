@@ -56,7 +56,7 @@ void
 upmf_package_destroy (upmf_package_t this);
 
 void
-upmf_package_tree_new (ucstring_t pkgname, gl_list_t plist);
+upmf_package_deplist_new (ucstring_t pkgname, gl_list_t plist);
 
 ustring_t
 upmf_package_find_file (ucstring_t pkgname);

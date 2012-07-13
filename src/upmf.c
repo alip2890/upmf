@@ -136,7 +136,7 @@ main (int argc, char **argv)
   if (strcmp (arguments.package_name, "-"))
     {
       gl_list_t plist = UPMF_PACKAGE_LIST_NEW;
-      upmf_package_tree_new (arguments.package_name, plist);
+      upmf_package_deplist_new (arguments.package_name, plist);
 
       for (int pos = 0; pos < gl_list_size (plist); pos++)
 	{
