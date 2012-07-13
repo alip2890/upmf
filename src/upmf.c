@@ -24,6 +24,7 @@
 #include "argp.h"
 #include "error.h"
 #include "gettext.h"
+#include "jobs.h"
 #include "package.h"
 #include "version.h"
 #include "types.h"
@@ -124,30 +125,13 @@ main (int argc, char **argv)
 
 
   if (arguments.update)
-    {
-      printf ("Updating files...\n");
-    }
-
+    upmf_update_files ();
+  
   if (arguments.upgrade)
-    {
-      printf ("Upgrading system...\n");
-    }
+    upmf_upgrade_system (FALSE);
 
   if (strcmp (arguments.package_name, "-"))
-    {
-      gl_list_t plist = UPMF_PACKAGE_LIST_NEW;
-      upmf_package_deplist_new (arguments.package_name, plist);
-
-      for (int pos = 0; pos < gl_list_size (plist); pos++)
-	{
-	  upmf_package_t p = UPMF_PACKAGE (gl_list_get_at (plist, pos));
-	  printf (_("New: %s/%s\n"), p->section, p->name);
-	}
-
-      gl_list_free (plist);
-      
-      printf (_("Installing %s\n"), arguments.package_name);
-    }
+    upmf_install_package (arguments.package_name);
 
   exit (0);
 }

@@ -130,9 +130,10 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_upmf_OBJECTS = archive.$(OBJEXT) build.$(OBJEXT) command.$(OBJEXT) \
-	common.$(OBJEXT) dependency.$(OBJEXT) patch.$(OBJEXT) \
-	package.$(OBJEXT) release.$(OBJEXT) upmf-config.$(OBJEXT) \
-	use.$(OBJEXT) version.$(OBJEXT) upmf.$(OBJEXT)
+	common.$(OBJEXT) dependency.$(OBJEXT) jobs.$(OBJEXT) \
+	patch.$(OBJEXT) package.$(OBJEXT) release.$(OBJEXT) \
+	upmf-config.$(OBJEXT) use.$(OBJEXT) version.$(OBJEXT) \
+	upmf.$(OBJEXT)
 upmf_OBJECTS = $(am_upmf_OBJECTS)
 upmf_LDADD = $(LDADD)
 am__DEPENDENCIES_1 =
@@ -954,6 +955,7 @@ upmf_SOURCES = \
 	common.h common.c \
 	dependency.c dependency.h \
 	gettext.h \
+	jobs.c jobs.h \
 	patch.c patch.h \
 	package.c package.h \
 	release.c release.h \
@@ -1054,6 +1056,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/command.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/common.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dependency.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jobs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/package.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/patch.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/release.Po@am__quote@
