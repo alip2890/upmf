@@ -46,6 +46,7 @@ Installation
 ============
 
 Please see the file INSTALL for detailed installation information.
+If you are using the sources from GIT, you must run ./autogen.sh beforehand.
 
 Dependencies
 ============
