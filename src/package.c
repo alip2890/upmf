@@ -112,7 +112,9 @@ upmf_package_deplist_new (ucstring_t pname, gl_list_t plist)
 	{
 	  upmf_dep_t dep = UPMF_DEP (gl_list_get_at
 				     (newestrel->deplist, pos));
-	  upmf_package_deplist_new (dep->name, plist);
+	  
+	  if (dep->use == NULL || upmf_use_isset (dep->use))
+	    upmf_package_deplist_new (dep->name, plist);
 	}
     }
   else

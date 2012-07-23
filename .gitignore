@@ -1,2 +1,8 @@
 Build
 autom4te.cache
+configure
+Makefile.in
+data/Makefile.in
+doc/Makefile.in
+lib/Makefile.in
+src/Makefile.in

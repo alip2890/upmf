@@ -35,6 +35,7 @@ struct UpmfCommand
 {
   long int die;
   xstring_t cmd;
+  xstring_t use;
 };
 
 UPMF_DECLARE_TYPE (command)

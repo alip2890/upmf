@@ -23,17 +23,12 @@ upmf_command_new (xmlDocPtr doc, xmlNodePtr node, upmf_package_t par)
 {
   if (xmlStrcmp (node->name, XSTRING ("cmd"))) return NULL;
   
-  xstring_t use = xmlGetProp (node, XSTRING ("use"));
-  if (use == NULL || (gl_list_search (par->uselist, UCPOINTER (use)) != NULL))
-    {
-      upmf_command_t cmd = UPMF_COMMAND (malloc (sizeof (struct UpmfCommand)));
-      cmd->cmd = upmf_get_xstring (doc, node);
-      cmd->die = strtol (xmlGetProp (node, XSTRING ("die")), NULL, 0);
-      return cmd;
-    }
-  
-  xmlFree (use);
-  return NULL;
+  upmf_command_t cmd = UPMF_COMMAND (malloc (sizeof (struct UpmfCommand)));
+  cmd->cmd = upmf_get_xstring (doc, node);
+  cmd->die = strtol (xmlGetProp (node, XSTRING ("die")), NULL, 0);
+  cmd->use = xmlGetProp (node, XSTRING ("use"));
+    
+  return cmd;
 }
 
 void
@@ -42,6 +37,7 @@ upmf_command_destroy (upmf_command_t this)
   if (this == NULL) return;
 
   xmlFree (this->cmd);
+  xmlFree (this->use);
   free (this);
 }
 

@@ -1,3 +1,18 @@
+2012-07-23  Aljosha Papsch  <papsch.al@googlemail.com>
+
+	* doc/upmf.texi: Added warning to not remove tags from config file
+	* src/command.c (upmf_command_new): Removed check for use flag
+	(upmf_command_destroy): struct member use gets freed
+	* src/command.h: Added struct member xstring_t use
+	* src/dependency.c (upmf_dep_new): Removed check for use flag
+	(upmf_dep_destroy): struct member use gets freed
+	* src/dependency.h: Added struct member xstring_t use
+	* src/package.c (upmf_package_deplist_new): Recursive call is only
+	made when use flag is set or no use specified for the dependency
+	* src/upmf-config.c (upmf_config_init): upmf_config.uses is
+	now initialized with function upmf_list_init_from_doc
+	* src/use.c: New function upmf_use_isset
+
 2012-07-13  Aljosha Papsch  <papsch.al@googlemail.com>
 
 	* src/package.h: Changed upmf_package_tree_new to

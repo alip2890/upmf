@@ -226,6 +226,12 @@ this use flag you would write @samp{gtk} in a @code{use} tag then.}
 
 @end itemize
 
+Do not delete the tags @code{enabled}, @code{packagefiles}, @code{distdir},
+@code{packagedir}, @code{cflags}, @code{cxxflags}, @code{chost},
+@code{makeopts}, @code{stow}, @code{features} and @code{uses}! Otherwise the
+program may crash unexpectedly. Deletable are @code{dir}, @code{feature}
+and @code{use}.
+
 @node Package files in detail, Managing packages, Configuring Upmf, Upmf for Users
 @section Package files in detail
 

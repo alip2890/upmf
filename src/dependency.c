@@ -21,19 +21,14 @@
 upmf_dep_t
 upmf_dep_new (xmlDocPtr doc, xmlNodePtr node, upmf_package_t parent)
 {
-  xstring_t depuse = xmlGetProp (node, XSTRING ("use"));
-  if (depuse == NULL || (gl_list_search (parent->uselist,
-					 UCPOINTER (depuse)) != NULL))
-    {
-      upmf_dep_t tempdep = UPMF_DEP (malloc (sizeof (struct UpmfDep)));
-      tempdep->name = xmlGetProp (node, XSTRING ("name"));
-      tempdep->version = xmlGetProp (node, XSTRING ("version"));
-      
-      if (depuse != NULL) xmlFree (depuse);
-      return tempdep;
-    }
-  xmlFree (depuse);
-  return NULL;
+  if (xmlStrcmp (node->name, XSTRING ("dep"))) return NULL;
+  
+  upmf_dep_t tempdep = UPMF_DEP (malloc (sizeof (struct UpmfDep)));
+  tempdep->name = xmlGetProp (node, XSTRING ("name"));
+  tempdep->version = xmlGetProp (node, XSTRING ("version"));
+  tempdep->use = xmlGetProp (node, XSTRING ("use"));
+
+  return tempdep;
 }
 
 void
@@ -43,6 +38,7 @@ upmf_dep_destroy (upmf_dep_t this)
   
   xmlFree (this->name);
   xmlFree (this->version);
+  xmlFree (this->use);
   free (this);
 }
 

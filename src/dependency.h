@@ -34,6 +34,7 @@ struct UpmfDep
 {
   xstring_t name;
   xstring_t version;
+  xstring_t use;
 };
 
 UPMF_DECLARE_TYPE (dep)

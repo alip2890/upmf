@@ -56,7 +56,7 @@ spec attribute. It serves the same purpose as EAPI in ebuild. -->
 	     attribute. The optional use attribute defines for which use
 	     value to enable the dependency. It must be one of the use
 	     values defined in the uses tag. -->
-	<dep name="kdelibs/libktorrent" version="4.2.0" />
+	<dep name="kdelibs/libktorrent" version="4.2.0" use="none" />
 	<dep name="netlibs/geoip" use="infowidget" />
 	<dep name="medialibs/taglib" version="1.5" use="mediaplayer" />
 	<dep name="libs/libtaskmanager" use="plasma" />

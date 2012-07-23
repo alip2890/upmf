@@ -37,6 +37,21 @@ upmf_use_destroy (upmf_use_t this)
   free (this);
 }
 
+bool
+upmf_use_isset (ustring_t name)
+{
+  for (int pos = 0; pos < gl_list_size (upmf_config.uses); pos++)
+    {
+      printf ("comparing %s with %s\n", gl_list_get_at
+	      (upmf_config.uses, pos), name);
+	      
+      if (!xmlStrcmp (gl_list_get_at (upmf_config.uses, pos), XSTRING (name)))
+	return TRUE;
+    }
+
+  return FALSE;
+}
+
 UPMF_DEFINE_LIST_FUN (use, "use")
 UPMF_DEFINE_CMP_FUN (use, USE, name)
 
